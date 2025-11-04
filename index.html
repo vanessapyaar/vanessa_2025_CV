@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>Vanessa Carvalho — Product Designer (Growth)</title>
+    <title>Vanessa Carvalho — Senior Product Designer (Growth)</title>
     <meta name="description" content="I design for behavior—reducing emotional friction, building trust, and driving measurable growth." />
     
     <!-- Open Graph / Facebook -->
@@ -44,6 +44,8 @@
                     animation: {
                         'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
                         'fade-in': 'fadeIn 0.5s ease-in-out forwards',
+                        'slide-in-from-bottom': 'slideInFromBottom 0.6s ease-out forwards',
+                        'shimmer': 'shimmer 5s linear infinite',
                     },
                     keyframes: {
                         fadeInUp: {
@@ -53,7 +55,14 @@
                         fadeIn: {
                             '0%': { opacity: '0' },
                             '100%': { opacity: '1' },
-                        }
+                        },
+                        slideInFromBottom: {
+                            '0%': { opacity: '0', transform: 'translateY(100%)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        shimmer: {
+                            'to': { 'background-position': '200% center' },
+                        },
                     },
                 }
             }
@@ -71,6 +80,16 @@
           transform: translateY(0);
         }
       }
+      .container {
+        max-width: 1100px;
+      }
+      .shimmer-text {
+        background-image: linear-gradient( -75deg, #a78bfa 20%, #7c3aed 40%, #a78bfa 60%, #7c3aed 80% );
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
     </style>
     <!-- Schema.org -->
     <script type="application/ld+json">
@@ -86,7 +105,7 @@
       },
       "description": "I design for behavior—reducing emotional friction, building trust, and driving measurable growth.",
       "sameAs": [
-        "https://www.linkedin.com/in/vanessa-carvalho-designer-placeholder",
+        "https://www.linkedin.com/in/vanessa-castilho-decarvalho",
         "https://medium.com/@vanessa-carvalho-designer-placeholder"
       ]
     }
@@ -96,7 +115,7 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "url": "https://vanessa-carvalho.design/",
-      "name": "Vanessa Carvalho — Product Designer (Growth)",
+      "name": "Vanessa Carvalho — Senior Product Designer (Growth)",
       "author": {
         "@type": "Person",
         "name": "Vanessa Carvalho"

@@ -1,16 +1,20 @@
+import { ReactElement } from "react";
+
+// FIX: Removed circular import from './types' which caused declaration conflicts.
+// The file was importing types from itself.
+
 export interface Project {
   id: string;
   tag: string;
   title: string;
   summary: string;
   impact: string[];
-  alignmentChip: string;
   thumbnailComponent: string;
 }
 
 export interface Pillar {
   icon: string;
-  title: string;
+  title:string;
   description: string;
 }
 
@@ -27,81 +31,59 @@ export interface Testimonial {
 
 // --- Project Detail Page Types ---
 
-export interface SnapshotItem {
-    label: string;
-    value: string;
+// Base types shared across projects
+export interface OutcomeMetric {
+  value: string;
+  label: string;
 }
 
-export interface ProblemEvidence {
-    type: 'Session' | 'Qual' | 'Data';
-    text: string;
+// Reusable narrative/process structure for standard case studies
+export interface NarrativeArtifact {
+  component: string;
+  caption: string;
 }
 
-export interface BehaviorModel {
-    model: 'Fogg' | 'Trust loops' | 'Social proof';
-    text: string;
-}
-
-export interface DesignElement {
+export interface NarrativeSection {
+    id: string;
     title: string;
-    description: string;
+    content: (string | { type: 'quote'; text: string; author?: string })[];
+    artifacts?: NarrativeArtifact[];
 }
 
-export interface Experiment {
-    title: string;
-    description: string;
-    result: string;
-}
-
-export interface Kpi {
-    value: string;
-    label: string;
-}
-
-export interface Guardrail {
-    title: string;
-    description: string;
-}
-
-export interface Artifact {
-    componentName: string;
+export interface UIShowcaseImage {
+    component: string;
     caption: string;
 }
 
-export interface ProjectDetail {
-    id: string;
-    breadcrumb: string;
+export interface StandardProjectData {
+    id: 'boattrader-app-redesign' | 'seller-dashboard-redesign' | 'ai-workflow-templates' | 'ai-image-search';
     hero: {
         title: string;
         subtitle: string;
-        stats: string[];
+        category?: string;
+        impact: OutcomeMetric[];
+        imageComponent: string;
+        role: string;
+        team: string;
+        timeframe: string;
     };
-    snapshot: SnapshotItem[];
-    problemInsight: {
-        problem: string;
-        evidence: ProblemEvidence[];
-        models: BehaviorModel[];
-    };
-    designSystem: {
-        elements: DesignElement[];
-    };
-    experiments: {
-        items: Experiment[];
-        note: string;
-    };
-    results: {
-        kpis: Kpi[];
-        quote: string;
-    };
-    ethics: Guardrail[];
-    changeOrgTranslation: {
+    overview: {
         title: string;
-        points: { title: string; description: string }[];
-        footer: string;
+        content: (string | { type: 'quote'; text: string; })[];
     };
-    process: {
-        steps: string[];
-        notes: string[];
+    narrative: NarrativeSection[];
+    uiShowcase: {
+        title: string;
+        images: UIShowcaseImage[];
     };
-    artifacts: Artifact[];
+    reflection: Omit<NarrativeSection, 'id' | 'artifacts'>;
 }
+
+// --- Specific Project Types (can be extended if they diverge) ---
+export type SmartSearchProjectData = StandardProjectData & { id: 'boattrader-app-redesign' };
+export type SavedBoatsProjectData = StandardProjectData & { id: 'seller-dashboard-redesign' };
+export type DesignSystemProjectData = StandardProjectData & { id: 'ai-workflow-templates' };
+
+
+// Union type for any project detail page
+export type ProjectDetailData = StandardProjectData;

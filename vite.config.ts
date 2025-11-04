@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
     // 👇 This line ensures assets work correctly on GitHub Pages
-    base: '/vanessa_2025_CV/',
+    base: '/',
 
     server: {
       port: 3000,

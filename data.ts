@@ -125,6 +125,21 @@ export const TESTIMONIALS: Testimonial[] = [
         author: 'John Smith',
         role: 'Senior Data Scientist',
     },
+    {
+        quote: 'Her ability to synthesize complex user research into actionable design principles is unmatched. She is a true advocate for the user.',
+        author: 'Emily White',
+        role: 'UX Researcher',
+    },
+    {
+        quote: 'Vanessa is a master of her craft. She consistently delivers elegant solutions to complex problems, and her attention to detail is second to none.',
+        author: 'Michael Brown',
+        role: 'Engineering Manager',
+    },
+    {
+        quote: 'I was consistently impressed by Vanessa\'s ability to lead design discussions and build consensus across teams. She is a natural collaborator.',
+        author: 'Sarah Green',
+        role: 'Director of Product',
+    },
 ];
 
 export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {

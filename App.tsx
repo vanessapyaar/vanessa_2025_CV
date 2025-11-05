@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { PROJECTS, PILLARS, VALUES, TESTIMONIALS, PROJECT_DETAILS } from './data';
 import { Project, Pillar, Value, Testimonial, ProjectDetailData, NarrativeArtifact, UIShowcaseImage, NarrativeSection, StandardProjectData } from './types';
 
+
 // --- ICONS ---
 const Icons = {
   DiagnosisIcon: () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>,
@@ -155,23 +156,24 @@ const Header = ({ isDarkMode, onThemeToggle, isProjectPage, onBack }: { isDarkMo
                     </button>
                 ) : (
                     <>
-                        <a href="#" onClick={handleLogoClick} className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">VC</a>
+                        <div className="flex-1">
+                            <a href="#" onClick={handleLogoClick} className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">VC</a>
+                        </div>
                         <div className="hidden md:flex items-center space-x-8">
                             {navLinks.map(link => (
                                 <a key={link.href} href={link.href} onClick={(e) => handleNavClick(e, link.href)} className="text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-accent-light transition-colors">{link.label}</a>
                             ))}
                         </div>
+                        <div className="flex-1 flex justify-end">
+                            <div className="flex items-center space-x-4">
+                                <button onClick={onThemeToggle} aria-label="Toggle theme" className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                                    {isDarkMode ? <SunIcon /> : <MoonIcon />}
+                                </button>
+                                <a href="https://storage.googleapis.com/portfolio-asset-vanessa/Vanessa_Growth-Enterprise-CV.pdf" target="_blank" rel="noopener noreferrer" className="hidden md:inline-block px-4 py-2 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-lg shadow-md transition-all transform hover:scale-105">Download Resume</a>
+                            </div>
+                        </div>
                     </>
                 )}
-                
-                <div className="flex items-center space-x-4">
-                    <button onClick={onThemeToggle} aria-label="Toggle theme" className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
-                        {isDarkMode ? <SunIcon /> : <MoonIcon />}
-                    </button>
-                    {!isProjectPage && (
-                        <a href="https://storage.googleapis.com/portfolio-asset-vanessa/Vanessa_Growth-Enterprise-CV.pdf" target="_blank" rel="noopener noreferrer" className="hidden md:inline-block px-4 py-2 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-lg shadow-md transition-all transform hover:scale-105">Download Resume</a>
-                    )}
-                </div>
 
                 {!isProjectPage && (
                     <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-slate-800 dark:text-slate-200" aria-label="Open menu">
@@ -220,13 +222,13 @@ const Hero = () => {
     }, []);
 
     // Find the longest word to prevent layout shift
-    const longestWord = rotatingWords.reduce((a, b) => a.length > b.length ? a : b, "");
+    const longestWord = "connection";
 
     return (
         <section className="container mx-auto px-6 pt-24 pb-16 md:pt-32 md:pb-24 text-center">
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter text-slate-900 dark:text-white leading-tight mb-10 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-                Designing experiences that inspire&nbsp;
-                <span className="relative inline-block align-middle h-auto overflow-hidden text-accent dark:text-accent-light" style={{ lineHeight: '85%' }}>
+            <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-10 animate-fade-in-up flex flex-wrap justify-center items-baseline" style={{ animationDelay: '0.1s', letterSpacing: '-0.04em' }}>
+                <span>Designing experiences that inspire&nbsp;</span>
+                <span className="relative inline-block h-auto overflow-hidden text-accent dark:text-accent-light">
                     <span className="invisible whitespace-pre">{longestWord}</span>
                     <span
                         key={currentIndex}
@@ -326,11 +328,12 @@ const About = () => (
         </div>
     </Section>
 );
+
 const Testimonials = () => (
     <Section id="testimonials">
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-slate-900 dark:text-white mb-12">What Colleagues Say</h2>
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {TESTIMONIALS.map((testimonial: Testimonial) => (
+        <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {TESTIMONIALS.slice(0, 3).map((testimonial: Testimonial) => (
                 <figure key={testimonial.author} className="bg-white dark:bg-slate-800/50 p-8 rounded-2xl shadow-lg">
                     <blockquote className="text-slate-600 dark:text-slate-300 mb-6">
                         <p>“{testimonial.quote}”</p>
@@ -347,14 +350,12 @@ const Testimonials = () => (
 const Contact = () => (
     <footer className="bg-slate-100 dark:bg-slate-900">
         <div id="contact" className="container mx-auto px-6 py-20 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">Want to talk growth, emotion, and outcomes?</h2>
+            <h2 className="shimmer-text animate-shimmer text-4xl md:text-5xl font-extrabold tracking-tight mb-8 pb-2">
+                Want to talk growth, emotion, and outcomes?
+            </h2>
             <div className="flex justify-center gap-4 mb-12">
                 <a href="mailto:designvanessav@gmail.com" className="px-8 py-3 font-semibold text-white bg-accent hover:bg-accent-dark rounded-lg shadow-lg transition-all transform hover:scale-105">Email Vanessa</a>
                 <a href="https://storage.googleapis.com/portfolio-asset-vanessa/Vanessa_Growth-Enterprise-CV.pdf" target="_blank" rel="noopener noreferrer" className="px-8 py-3 font-semibold text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-lg shadow-lg transition-all transform hover:scale-105">Download Resume</a>
-            </div>
-            <div className="flex justify-center gap-6 mb-8">
-                <a href="https://www.linkedin.com/in/vanessa-castilho-decarvalho" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-slate-500 hover:text-accent transition-colors"><LinkedInIcon /></a>
-                <a href="#" aria-label="Medium" className="text-slate-500 hover:text-accent transition-colors"><MediumIcon /></a>
             </div>
         </div>
         <div className="border-t border-slate-200 dark:border-slate-800">

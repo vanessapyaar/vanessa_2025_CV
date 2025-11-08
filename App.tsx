@@ -4,22 +4,31 @@ import { Project, Pillar, Value, Testimonial, ProjectDetailData, NarrativeArtifa
 
 
 // --- ICONS ---
-const Icons = {
-  DiagnosisIcon: () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>,
-  SafetyIcon: () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
-  SpeedIcon: () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
-  BetsIcon: () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.636-6.364l.707.707M19.071 4.929L18.364 5.636M6.343 17.657l-.707.707M17.657 6.343l.707-.707" /></svg>,
-  SystemsThinkingIcon: () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12s-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367 2.684z" /></svg>,
-  CollaborationIcon: () => <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
-  LinkedInIcon: () => <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.714c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.714h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clipRule="evenodd"></path></svg>,
-  MediumIcon: () => <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.4,6.42H4V17.58h3.39ZM20,6.42H16.58V17.58H20ZM13.7,6.42H10.29V17.58H13.7Z"></path></svg>,
-  MoonIcon: () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>,
-  SunIcon: () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M12 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>,
-  CheckIcon: () => <svg className="w-5 h-5 mr-2 text-accent flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>,
-  ReflectIcon: () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"><path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0011.664 0l3.181-3.183m-11.664 0l3.181-3.182m0 0a8.25 8.25 0 00-11.664 0l-3.181 3.182" /></svg>,
+import { Search, ShieldCheck, Zap, Trophy, GitMerge, Users, Linkedin, Moon, Sun, Check, RefreshCw, Eye, Scaling, Key, Handshake, UserCheck, Book } from 'lucide-react';
+
+const Icon = ({ name, ...props }: { name: string; [key: string]: any; }) => {
+    const IconComponent = {
+        DiagnosisIcon: Search,
+        SafetyIcon: ShieldCheck,
+        SpeedIcon: Zap,
+        BetsIcon: Trophy,
+        SystemsThinkingIcon: GitMerge,
+        CollaborationIcon: Users,
+        LinkedInIcon: Linkedin,
+        MoonIcon: Moon,
+        SunIcon: Sun,
+        CheckIcon: Check,
+        ReflectIcon: RefreshCw,
+        TransparencyIcon: Eye,
+        ScalabilityIcon: Scaling,
+        OwnershipIcon: Key,
+        CollaborationIcon2: Handshake,
+        UserFocusIcon: UserCheck,
+        MediumIcon: Book,
+    }[name];
+
+    return IconComponent ? <IconComponent {...props} /> : null;
 };
-const { SunIcon, MoonIcon, CheckIcon, LinkedInIcon, MediumIcon } = Icons;
-const Icon = ({ name }: { name: keyof typeof Icons }) => { const IconComponent = Icons[name]; return IconComponent ? <IconComponent /> : null; };
 
 // --- PLACEHOLDERS & THUMBNAILS ---
 const Placeholders = {
@@ -59,6 +68,14 @@ const Placeholders = {
   AIUploadPreview: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Mockup of image upload preview screen</div>,
   AIMatchResults: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Mockup of visual match results page</div>,
   AIFeedbackPrompt: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Mockup of in-session feedback prompt</div>,
+  GenericEmpathizeArtifact: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Empathize Artifact Placeholder</div>,
+  BoatTraderEmpathizeArtifact1: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/filter-annotations.png" alt="Filter Annotations" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
+  BoatTraderEmpathizeArtifact2: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/search-results-old.png" alt="Old Search Results" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
+  BoatTraderEmpathizeArtifact3: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/details%20screen.png" alt="Old Details Screen" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
+  BoatTraderDefineArtifact1: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/bt-artifacts.png" alt="BoatTrader Define Artifact" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
+  GenericDefineArtifact: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Define Artifact Placeholder</div>,
+  BoatTraderIdeateArtifact1: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/srp-explorations.png" alt="BoatTrader Ideate Artifact" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
+  GenericIdeateArtifact: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Ideate Artifact Placeholder</div>,
 };
 const Placeholder = ({ name, ...props }: { name: string; [key: string]: any; }) => { const Comp = Placeholders[name]; return Comp ? <Comp {...props} /> : null; };
 
@@ -167,7 +184,7 @@ const Header = ({ isDarkMode, onThemeToggle, isProjectPage, onBack }: { isDarkMo
                         <div className="flex-1 flex justify-end">
                             <div className="flex items-center space-x-4">
                                 <button onClick={onThemeToggle} aria-label="Toggle theme" className="p-2 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
-                                    {isDarkMode ? <SunIcon /> : <MoonIcon />}
+                                    {isDarkMode ? <Icon name="SunIcon" className="h-6 w-6" /> : <Icon name="MoonIcon" className="h-6 w-6" />}
                                 </button>
                                 <a href="https://storage.googleapis.com/portfolio-asset-vanessa/Vanessa_Growth-Enterprise-CV.pdf" target="_blank" rel="noopener noreferrer" className="hidden md:inline-block px-4 py-2 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-lg shadow-md transition-all transform hover:scale-105">Download Resume</a>
                             </div>
@@ -238,14 +255,17 @@ const Hero = () => {
                     </span>
                 </span>
             </h1>
-            <div className="max-w-4xl mx-auto mb-10 text-sm font-semibold text-accent dark:text-accent-light tracking-wider uppercase space-x-2 md:space-x-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                <span>20M+ USERS REACHED</span>
-                <span className="text-slate-300 dark:text-slate-600">•</span>
-                <span>↑ CONVERSION & ENGAGEMENT</span>
-                <span className="text-slate-300 dark:text-slate-600">•</span>
-                <span>40% FASTER DISCOVERY</span>
-                <span className="text-slate-300 dark:text-slate-600">•</span>
-                <span>APP RATINGS 4.5 → 4.8</span>
+            <p className="max-w-2xl mx-auto text-lg text-slate-600 dark:text-slate-400 mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                Hi, I'm Vanessa — a senior product designer with over 8 years of experience. I specialize in designing for behavior, bridging the gap between user psychology and business growth.
+            </p>
+            <div className="max-w-4xl mx-auto mb-10 text-sm font-semibold text-accent dark:text-accent-light tracking-wider uppercase grid grid-cols-2 gap-4 md:flex md:flex-row md:space-y-0 md:space-x-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                <span className="whitespace-nowrap">20M+ USERS REACHED</span>
+                <span className="hidden md:inline text-slate-300 dark:text-slate-600">•</span>
+                <span className="whitespace-nowrap">↑ CONVERSION & ENGAGEMENT</span>
+                <span className="hidden md:inline text-slate-300 dark:text-slate-600">•</span>
+                <span className="whitespace-nowrap">40% FASTER DISCOVERY</span>
+                <span className="hidden md:inline text-slate-300 dark:text-slate-600">•</span>
+                <span className="whitespace-nowrap">APP RATINGS 4.5 → 4.8</span>
             </div>
             <div className="flex justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
                 <a href="#work" className="px-8 py-3 font-semibold text-white bg-accent hover:bg-accent-dark rounded-lg shadow-lg transition-all transform hover:scale-105">View Selected Work</a>
@@ -268,7 +288,7 @@ const Work = ({ onSelectProject }: { onSelectProject: (id: string) => void }) =>
             <ul className="space-y-3 mb-6">
               {project.impact.map((item, i) => (
                 <li key={i} className="flex items-start text-sm">
-                  <CheckIcon />
+                  <Icon name="CheckIcon" className="w-5 h-5 mr-2 text-accent flex-shrink-0" />
                   <span className="text-slate-600 dark:text-slate-300">{item}</span>
                 </li>
               ))}
@@ -284,36 +304,42 @@ const Work = ({ onSelectProject }: { onSelectProject: (id: string) => void }) =>
 );
 const HowIWork = () => (
     <div className="bg-slate-100 dark:bg-slate-800/50">
-        <Section id="process" className="py-20">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-slate-900 dark:text-white mb-12">How I Work</h2>
+        <Section id="process" className="py-20 md:py-32">
+            <p className="text-center text-lg text-slate-600 dark:text-slate-400 mb-4">My process blends analytical rigor with creative experimentation.</p>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-slate-900 dark:text-white mb-16">How I Work</h2>
             <div className="grid md:grid-cols-4 gap-10 text-center">
                 {PILLARS.map((pillar: Pillar) => (
                     <div key={pillar.title} className="flex flex-col items-center">
-                        <div className="mb-4"><Icon name={pillar.icon as keyof typeof Icons} /></div>
+                        <div className="mb-4"><Icon name={pillar.icon} className="h-8 w-8 text-accent" /></div>
                         <h3 className="font-bold text-slate-900 dark:text-white mb-2">{pillar.title}</h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400">{pillar.description}</p>
                     </div>
                 ))}
             </div>
+            <p className="text-center text-lg text-slate-600 dark:text-slate-400 mt-16">These methods are grounded in values that guide how I design, collaborate, and make decisions.</p>
         </Section>
     </div>
 );
 const Values = () => (
     <div className="bg-white dark:bg-darkBg">
-        <Section id="values">
+        <Section id="values" className="py-20 md:py-32">
+            <p className="text-center text-lg text-slate-600 dark:text-slate-400 mb-4">These principles shape every product decision — balancing empathy, clarity, and measurable impact.</p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-slate-900 dark:text-white mb-12">Values</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {VALUES.map((value: Value) => (
-                    <div key={value.title} className="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-xl">
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{value.title}</h3>
-                        <p className="text-slate-600 dark:text-slate-400 text-sm">{value.proof}</p>
+                    <div key={value.title} className="bg-slate-100 dark:bg-slate-800/50 p-6 rounded-xl flex items-start gap-4">
+                        <div className="flex-shrink-0"><Icon name={value.icon} className="h-8 w-8 text-accent" /></div>
+                        <div>
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{value.title}</h3>
+                            <p className="text-slate-600 dark:text-slate-400 text-sm">{value.proof}</p>
+                        </div>
                     </div>
                 ))}
             </div>
         </Section>
     </div>
 );
-const About = () => (
+const About = ({ onOpenModal }: { onOpenModal: () => void }) => (
     <Section id="about">
         <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/3 text-center">
@@ -323,10 +349,48 @@ const About = () => (
             </div>
             <div className="md:w-2/3">
                 <p className="text-xl text-slate-700 dark:text-slate-300 mb-6">Senior Product Designer with 8+ years crafting data-informed, emotionally intelligent experiences for multi-brand marketplaces. I bridge behavioral insight, experimentation, and design systems to simplify complexity and scale impact across millions of users.</p>
-                <a href="https://storage.googleapis.com/portfolio-asset-vanessa/Vanessa_Growth-Enterprise-CV.pdf" target="_blank" rel="noopener noreferrer" className="px-6 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-lg shadow-md transition-all transform hover:scale-105">Download Full Resume</a>
+                <div className="flex gap-4">
+                    <a href="https://storage.googleapis.com/portfolio-asset-vanessa/Vanessa_Growth-Enterprise-CV.pdf" target="_blank" rel="noopener noreferrer" className="px-6 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-lg shadow-md transition-all transform hover:scale-105">Download Full Resume</a>
+                    <button onClick={onOpenModal} className="px-6 py-3 text-sm font-semibold text-accent dark:text-accent-light hover:underline">Learn More</button>
+                </div>
             </div>
         </div>
     </Section>
+);
+
+const AboutModal = ({ onClose }: { onClose: () => void }) => (
+    <div 
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4 animate-fade-in"
+        onClick={onClose}
+    >
+        <div 
+            className="bg-white/80 dark:bg-darkBg/80 backdrop-blur-lg rounded-2xl shadow-2xl max-w-2xl w-full mx-auto p-8 md:p-12 relative transform transition-all duration-300 scale-95 animate-fade-in-up overflow-y-auto max-h-[90vh]"
+            onClick={e => e.stopPropagation()}
+        >
+            <button 
+                onClick={onClose}
+                className="absolute top-4 right-4 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition-colors"
+                aria-label="Close modal"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6">A Little More About Me</h2>
+            <div className="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 space-y-4">
+                <p>
+                    My passion for technology started in my early years, tinkering with computers and building simple websites. This curiosity led me to learn to code, and I still enjoy building my own projects from scratch. It's a skill that gives me a deeper understanding of the technical constraints and possibilities in my design work.
+                </p>
+                <p>
+                    I speak four languages, and my appetite for different cultures and diversity has taken me to many corners of the world. This exposure has been invaluable, enabling me to approach design with a global mindset and a deeper empathy for users from all walks of life.
+                </p>
+                <p>
+                    I'm fascinated by behavioral economics and the psychology of decision-making. I leverage these principles to design meaningful experiences that not only meet user needs but also create a sense of connection and trust. It's not about overselling a product; it's about understanding the human on the other side of the screen and designing with them in mind.
+                </p>
+                <p className="font-semibold text-accent dark:text-accent-light">
+                    Fun fact: I've won two company-wide hackathons! One for a discovery feed idea that personalized content based on user behavior, and another for improving our product detail pages with AI-powered personalization to suggest related items.
+                </p>
+            </div>
+        </div>
+    </div>
 );
 
 const Testimonials = () => (
@@ -357,6 +421,10 @@ const Contact = () => (
                 <a href="mailto:designvanessav@gmail.com" className="px-8 py-3 font-semibold text-white bg-accent hover:bg-accent-dark rounded-lg shadow-lg transition-all transform hover:scale-105">Email Vanessa</a>
                 <a href="https://storage.googleapis.com/portfolio-asset-vanessa/Vanessa_Growth-Enterprise-CV.pdf" target="_blank" rel="noopener noreferrer" className="px-8 py-3 font-semibold text-slate-700 dark:text-slate-200 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 rounded-lg shadow-lg transition-all transform hover:scale-105">Download Resume</a>
             </div>
+            <div className="flex justify-center gap-6 mb-8">
+                <a href="https://www.linkedin.com/in/vanessa-castilho-decarvalho" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-slate-500 hover:text-accent transition-colors"><Icon name="LinkedInIcon" className="w-6 h-6" /></a>
+                <a href="https://medium.com/@vanessadesign" target="_blank" rel="noopener noreferrer" aria-label="Medium" className="text-slate-500 hover:text-accent transition-colors"><Icon name="MediumIcon" className="w-6 h-6" /></a>
+            </div>
         </div>
         <div className="border-t border-slate-200 dark:border-slate-800">
             <div className="container mx-auto px-6 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
@@ -375,9 +443,9 @@ const ProjectHero = ({ hero, onImageClick }: { hero: StandardProjectData['hero']
     <div className="bg-slate-100 dark:bg-slate-800/50">
         <div className="container mx-auto px-6 pt-20 pb-16 text-center">
             {hero.category && <p className="text-sm font-semibold text-accent dark:text-accent-light mb-2">{hero.category}</p>}
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-4">{hero.title}</h1>
+            <h1 className="text-2xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight mb-4">{hero.title}</h1>
             <p className="max-w-3xl mx-auto text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-8">{hero.subtitle}</p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-8 mb-12">
+            <div className="grid grid-cols-2 gap-4 sm:flex sm:flex-row sm:justify-center sm:items-center sm:gap-8 mb-12">
                 {hero.impact.map(metric => (
                     <div key={metric.label} className="text-center">
                         <p className="text-2xl md:text-3xl font-bold text-accent dark:text-accent-light">{metric.value}</p>
@@ -419,19 +487,128 @@ const ProjectFooter = () => (
 // --- Reusable Project Detail Components ---
 const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts: (NarrativeArtifact[] | UIShowcaseImage[]), onClose: () => void, initialIndex?: number }) => {
     const [currentIndex, setCurrentIndex] = useState(initialIndex);
+    const [scale, setScale] = useState(1);
+    const [translateX, setTranslateX] = useState(0);
+    const [translateY, setTranslateY] = useState(0);
+    const [isPanning, setIsPanning] = useState(false);
+    const [startPanX, setStartPanX] = useState(0);
+    const [startPanY, setStartPanY] = useState(0);
+    const [lastTouchDistance, setLastTouchDistance] = useState(0);
+    const [lastTouchX, setLastTouchX] = useState(0);
+    const [lastTouchY, setLastTouchY] = useState(0);
+    const imageRef = useRef<HTMLDivElement>(null);
 
     const goToPrevious = () => {
+        setScale(1); setTranslateX(0); setTranslateY(0); // Reset zoom/pan on slide change
         const isFirstSlide = currentIndex === 0;
         const newIndex = isFirstSlide ? artifacts.length - 1 : currentIndex - 1;
         setCurrentIndex(newIndex);
     };
 
     const goToNext = () => {
+        setScale(1); setTranslateX(0); setTranslateY(0); // Reset zoom/pan on slide change
         const isLastSlide = currentIndex === artifacts.length - 1;
         const newIndex = isLastSlide ? 0 : currentIndex + 1;
         setCurrentIndex(newIndex);
     };
     
+    const resetZoom = () => {
+        setScale(1);
+        setTranslateX(0);
+        setTranslateY(0);
+    };
+
+    const handleMouseDown = (e: React.MouseEvent) => {
+        if (scale > 1) {
+            setIsPanning(true);
+            setStartPanX(e.clientX - translateX);
+            setStartPanY(e.clientY - translateY);
+        }
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isPanning) return;
+        setTranslateX(e.clientX - startPanX);
+        setTranslateY(e.clientY - startPanY);
+    };
+
+    const handleMouseUp = () => {
+        setIsPanning(false);
+    };
+
+    const handleMouseLeave = () => {
+        setIsPanning(false);
+    };
+
+    const handleWheel = (e: React.WheelEvent) => {
+        e.preventDefault();
+        const scaleAmount = 0.1;
+        const newScale = e.deltaY < 0 ? scale * (1 + scaleAmount) : scale / (1 + scaleAmount);
+        
+        // Limit zoom level
+        if (newScale < 1) {
+            resetZoom();
+            return;
+        }
+        if (newScale > 5) return; // Max zoom 5x
+
+        setScale(newScale);
+    };
+
+    const handleDoubleClick = () => {
+        resetZoom();
+    };
+
+    // Touch event handlers
+    const getDistance = (touches: TouchList) => {
+        if (touches.length < 2) return 0;
+        const dx = touches[0].clientX - touches[1].clientX;
+        const dy = touches[0].clientY - touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    };
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        if (e.touches.length === 2) {
+            setLastTouchDistance(getDistance(e.touches));
+            setIsPanning(false); // Disable panning when pinching
+        } else if (e.touches.length === 1 && scale > 1) {
+            setIsPanning(true);
+            setLastTouchX(e.touches[0].clientX);
+            setLastTouchY(e.touches[0].clientY);
+        }
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (e.touches.length === 2) {
+            const newDistance = getDistance(e.touches);
+            if (lastTouchDistance === 0) {
+                setLastTouchDistance(newDistance);
+                return;
+            }
+            const scaleAmount = (newDistance - lastTouchDistance) / 200; // Adjust sensitivity
+            let newScale = scale * (1 + scaleAmount);
+
+            if (newScale < 1) newScale = 1;
+            if (newScale > 5) newScale = 5;
+
+            setScale(newScale);
+            setLastTouchDistance(newDistance);
+        } else if (e.touches.length === 1 && isPanning) {
+            const dx = e.touches[0].clientX - lastTouchX;
+            const dy = e.touches[0].clientY - lastTouchY;
+            setTranslateX(translateX + dx);
+            setTranslateY(translateY + dy);
+            setLastTouchX(e.touches[0].clientX);
+            setLastTouchY(e.touches[0].clientY);
+        }
+    };
+
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        setIsPanning(false);
+        setLastTouchDistance(0);
+        if (scale < 1) resetZoom(); // Snap back if zoomed out too much
+    };
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
@@ -454,24 +631,58 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
              <button 
                 onClick={onClose}
                 className="absolute top-4 right-4 text-white/70 text-5xl hover:text-white transition-colors z-20"
-                aria-label="Close image viewer"
+                aria-label="Close modal"
             >
                 &times;
             </button>
-            <div className="relative w-full h-full flex flex-col items-center justify-center gap-4" onClick={e => e.stopPropagation()}>
+            <div 
+                className="relative w-full h-full flex flex-col items-center justify-center gap-4" 
+                onClick={e => e.stopPropagation()}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseLeave}
+                onWheel={handleWheel}
+                onDoubleClick={handleDoubleClick}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                style={{ cursor: scale > 1 ? (isPanning ? 'grabbing' : 'grab') : 'default' }}
+            >
                 <div className="relative flex items-center justify-center w-full max-w-5xl">
-                    <button onClick={goToPrevious} className="absolute left-0 -translate-x-12 p-2 text-white/70 hover:text-white transition-colors rounded-full bg-black/20 hover:bg-black/40" aria-label="Previous image">
+                    <button onClick={goToPrevious} className="absolute left-4 p-2 text-white/70 hover:text-white transition-colors rounded-full bg-black/20 hover:bg-black/40" aria-label="Previous image">
                          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                     </button>
                     
-                    <div className="w-full flex justify-center items-center">
+                    <div 
+                        ref={imageRef}
+                        className="w-full flex justify-center items-center"
+                        style={{
+                            transform: `scale(${scale}) translate(${translateX / scale}px, ${translateY / scale}px)`,
+                            transition: isPanning ? 'none' : 'transform 0.1s ease-out',
+                            transformOrigin: 'center center'
+                        }}
+                    >
                          <Placeholder name={currentArtifact.component} />
                     </div>
 
-                    <button onClick={goToNext} className="absolute right-0 translate-x-12 p-2 text-white/70 hover:text-white transition-colors rounded-full bg-black/20 hover:bg-black/40" aria-label="Next image">
+                    <button onClick={goToNext} className="absolute right-4 p-2 text-white/70 hover:text-white transition-colors rounded-full bg-black/20 hover:bg-black/40" aria-label="Next image">
                          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                     </button>
                 </div>
+                {artifacts.length > 1 && (
+                    <div className="hidden md:flex justify-center gap-2 mt-4 max-w-5xl overflow-x-auto pb-2">
+                        {artifacts.map((artifact, index) => (
+                            <button 
+                                key={index} 
+                                className={`flex-shrink-0 w-20 h-16 border-2 rounded-md overflow-hidden ${index === currentIndex ? 'border-accent' : 'border-transparent'} hover:border-accent-light transition-colors`}
+                                onClick={(e) => { e.stopPropagation(); setCurrentIndex(index); resetZoom(); }}
+                            >
+                                <Placeholder name={artifact.component} className="w-full h-full object-cover" />
+                            </button>
+                        ))}
+                    </div>
+                )}
                 <div className="text-center text-white/80 max-w-3xl">
                     <p className="font-semibold text-lg">{currentArtifact.caption}</p>
                     <p className="text-sm mt-1">{currentIndex + 1} / {artifacts.length}</p>
@@ -581,7 +792,7 @@ const StandardProjectDetail = ({ project, onImageClick }: { project: StandardPro
               
               <DetailSection className="!py-10 md:!py-12 bg-slate-100 dark:bg-slate-800/50">
                 <div className="lg:grid lg:grid-cols-12 lg:gap-16">
-                    <aside className="lg:col-span-3 mb-8 lg:mb-0">
+                    <aside className="lg:col-span-3 mb-8 lg:mb-0 lg:ml-8">
                         <nav className="sticky top-24">
                            <p className="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4 hidden lg:block">Project Process</p>
                             <div className="relative">
@@ -597,7 +808,7 @@ const StandardProjectDetail = ({ project, onImageClick }: { project: StandardPro
                                                 onClick={() => setActiveTabId(section.id)}
                                                 className="flex-shrink-0 lg:w-full flex items-center p-2 rounded-lg text-left transition-colors duration-200 group"
                                             >
-                                                <div className={`z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold transition-colors duration-200 ${isActive ? 'bg-accent text-white lg:ring-4 lg:ring-white dark:lg:ring-darkBg' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 group-hover:bg-slate-300 dark:group-hover:bg-slate-600'}`}>
+                                                <div className={`z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold transition-colors duration-200 ${isActive ? 'bg-gradient-to-r from-[#a78bfa] to-[#7c3aed] text-white lg:ring-4 lg:ring-white dark:lg:ring-darkBg' : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 group-hover:bg-slate-300 dark:group-hover:bg-slate-600'}`}>
                                                     {index + 1}
                                                 </div>
                                                 <span className={`ml-3 lg:ml-4 font-semibold transition-colors duration-200 ${isActive ? activeClasses : inactiveClasses}`}>
@@ -615,19 +826,48 @@ const StandardProjectDetail = ({ project, onImageClick }: { project: StandardPro
                         <div key={activeSection.id} className="animate-fade-in">
                            <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">{activeSection.title}</h3>
                             <div className="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 space-y-4">
-                                {activeSection.content.map((item, index) => {
-                                    if (typeof item === 'string') return <p key={index}>{item}</p>;
-                                    if (item.type === 'quote') {
-                                        return (
-                                            <blockquote key={index} className="border-l-4 border-accent pl-4 my-6 text-slate-500 dark:text-slate-400">
-                                                <p className="text-xl italic">"{item.text}"</p>
-                                                {item.author && <cite className="not-italic font-semibold block mt-2">— {item.author}</cite>}
-                                            </blockquote>
-                                        );
-                                    }
-                                    return null;
-                                })}
-                            </div>
+                                                                                                {(() => {
+                                                                                                    const principlesIntroIndex = activeSection.content.findIndex(item => typeof item === 'string' && item.includes('three core principles'));
+                                                                                                    const principlesIntro = principlesIntroIndex !== -1 ? activeSection.content[principlesIntroIndex] : null;
+                                                                                                    const principles = activeSection.content.filter(item => (item as any).type === 'principle');
+                                                                                                    const otherContent = activeSection.content.filter((item, index) => {
+                                                                                                        if (index === principlesIntroIndex) return false; // Exclude the intro string if found
+                                                                                                        return typeof item === 'string' || (item as any).type === 'quote';
+                                                                                                    });
+                                                                
+                                                                                                    return (
+                                                                                                        <>
+                                                                                                            {otherContent.map((item, index) => {
+                                                                                                                if (typeof item === 'string') return <p key={index}>{item}</p>;
+                                                                                                                if (item.type === 'quote') {
+                                                                                                                    return (
+                                                                                                                         <blockquote key={index} className="border-l-4 border-accent pl-4 my-6 text-slate-500 dark:text-slate-400">
+                                                                                                                            <p className="text-xl italic">"{item.text}"</p>
+                                                                                                                            {item.author && <cite className="not-italic font-semibold block mt-2">— {item.author}</cite>}
+                                                                                                                        </blockquote>
+                                                                                                                    );
+                                                                                                                }
+                                                                                                                return null;
+                                                                                                            })}
+                                                                                                            {principlesIntro && <p>{principlesIntro}</p>}
+                                                                                                                                                        {principles.length > 0 && (
+                                                                                                                                                            <div className="grid md:grid-cols-3 gap-4">                                                                                                                    {principles.map((item, index) => (
+                                                                                                                        <div key={index} className="my-4 p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                                                                                                                            <p className="font-bold text-slate-900 dark:text-white">{(item as any).title}</p>
+                                                                                                                            <p className="text-sm text-slate-600 dark:text-slate-300">{(item as any).description}</p>
+                                                                                                                        </div>
+                                                                                                                    ))}
+                                                                                                                </div>
+                                                                                                            )}
+                                                                                                            {activeSection.content.map((item, index) => {
+                                                                                                                if ((item as any).type === 'post_principles_paragraph') {
+                                                                                                                    return <p key={index}>{(item as any).text}</p>;
+                                                                                                                }
+                                                                                                                return null;
+                                                                                                            })}
+                                                                                                        </>
+                                                                                                    );
+                                                                                                })()}                            </div>
 
                             {activeSection.id === 'deliver' && (
                                <div className="grid sm:grid-cols-3 gap-6 my-8 text-center">
@@ -675,6 +915,7 @@ export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [carouselState, setCarouselState] = useState<{ artifacts: (NarrativeArtifact[] | UIShowcaseImage[]), initialIndex: number } | null>(null);
+  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
 
 
   useEffect(() => {
@@ -724,7 +965,7 @@ export default function App() {
           <Work onSelectProject={handleSelectProject} />
           <HowIWork />
           <Values />
-          <About />
+          <About onOpenModal={() => setIsAboutModalOpen(true)} />
           <Testimonials />
         </main>
         <Contact />
@@ -742,6 +983,7 @@ export default function App() {
       />
       {PageContent}
       {carouselState && <CarouselLightbox artifacts={carouselState.artifacts} initialIndex={carouselState.initialIndex} onClose={() => setCarouselState(null)} />}
+      {isAboutModalOpen && <AboutModal onClose={() => setIsAboutModalOpen(false)} />}
     </>
   );
 }

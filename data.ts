@@ -4,12 +4,12 @@ export const PROJECTS: Project[] = [
   {
     id: 'boattrader-app-redesign',
     tag: 'Marketplace • Personalization & Discovery',
-    title: 'Smart Search - Unified Discovery Across Devices',
-    summary: 'Redesigned BoatTrader’s search experience with natural-language inputs, contextual filters, and intent detection. Reduced friction for shoppers, increased relevance, and improved overall conversion from search to product view.',
+    title: 'Designing the Discovery System → From Friction to Flow',
+    summary: 'Redesigned BoatTrader’s cross-platform discovery experience to turn hesitation into momentum. Introduced intent-driven search, contextual filters, and more scannable results.',
     impact: [
-      '↓ Time-to-product by 40%',
-      '↑ Search-to-item-view conversion',
-      '↑ Qualified leads from search by 5%',
+      '40% faster path to relevant listings',
+      'Higher conversion from search to item view',
+      '+5% qualified leads from search',
     ],
     thumbnailComponent: 'BoatTraderAppThumbnail',
   },
@@ -55,22 +55,22 @@ export const PILLARS: Pillar[] = [
     {
         icon: 'DiagnosisIcon',
         title: 'Behavioral Insight',
-        description: 'Identify what drives emotion, trust, and decision-making throughout the shopping journey.',
+        description: 'Understand what drives emotion, trust, and decision-making across the shopping journey.',
     },
     {
         icon: 'SystemsThinkingIcon',
         title: 'Systems Thinking',
-        description: 'Design frameworks and reusable patterns that ensure consistency across products and platforms.',
+        description: 'Create scalable frameworks and reusable patterns for cross-platform consistency.',
     },
     {
         icon: 'SpeedIcon',
         title: 'Experimentation at Speed',
-        description: 'Run quick, measurable iterations that balance business outcomes and user needs.',
+        description: 'Run rapid, measurable tests to balance user needs and business goals.',
     },
     {
-        icon: 'CollaborationIcon',
+        icon: 'CollaborationIcon2',
         title: 'Enterprise Collaboration',
-        description: 'Align design, data, and engineering to deliver scalable experiences with shared impact.',
+        description: 'Align design, data, and engineering to deliver scalable impact.',
     }
 ];
 
@@ -89,28 +89,34 @@ export const PROCESS_NOTES = [
 
 export const VALUES: Value[] = [
     {
+        icon: 'SafetyIcon',
         title: 'Design Integrity',
-        proof: 'Balance innovation with clarity, consistency, and ethical data use.',
+        proof: 'Balance innovation with clarity and ethical data use.',
     },
     {
+        icon: 'TransparencyIcon',
         title: 'Transparency',
-        proof: 'Communicate design decisions clearly across teams and disciplines.',
+        proof: 'Share context and rationale openly across teams.',
     },
     {
+        icon: 'ScalabilityIcon',
         title: 'Scalability',
-        proof: 'Design flexible frameworks that adapt across brands, products, and time.',
+        proof: 'Build frameworks that grow with products and teams.',
     },
     {
+        icon: 'OwnershipIcon',
         title: 'Ownership',
-        proof: 'Lead with accountability — measure outcomes, not outputs.',
+        proof: 'Measure outcomes, not outputs — and act with accountability.',
     },
     {
+        icon: 'CollaborationIcon',
         title: 'Collaboration',
-        proof: 'Partner cross-functionally to transform complexity into shared clarity.',
+        proof: 'Turn cross-functional complexity into shared clarity.',
     },
     {
+        icon: 'UserFocusIcon',
         title: 'User Focus',
-        proof: 'Anchor every decision in user needs, even when it challenges assumptions.',
+        proof: 'Anchor every decision in real human needs.',
     },
 ];
 
@@ -146,7 +152,7 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
   'boattrader-app-redesign': {
     id: 'boattrader-app-redesign',
     hero: {
-      title: 'Smart Search - Unified Discovery Across Devices',
+      title: 'Designing the Discovery System — From Friction to Flow',
       subtitle: '40% faster product discovery across mobile and desktop through natural language and intent detection.',
       impact: [
         { value: '40%', label: 'faster product discovery' },
@@ -162,8 +168,10 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
     overview: {
         title: 'BoatTrader Smart Search',
         content: [
-            'As Lead Designer, I reimagined how shoppers find boats across mobile and web by introducing a natural-language, intent-driven search experience. The goal: create a unified, frictionless journey that speeds up discovery and increases confidence — no matter where users start.',
-            'The result was a modular, responsive Smart Search system that helped users get to relevant listings 40% faster across devices — driving measurable lifts in engagement, satisfaction, and conversion consistency.'
+            'I redesigned BoatTrader’s end-to-end discovery experience — from search and filters to result cards and product details — to help shoppers go from browsing to decision faster and with more confidence.',
+            'The existing journey overwhelmed users with dense filters, unclear listing hierarchies, and inconsistent mobile behavior. The redesign focused on clarity: surfacing intent-driven filters, simplifying comparison, and reducing hesitation at every step.',
+            'The result was a responsive, modular system that improved engagement, lifted conversion, and helped real buyers feel in control, no matter where they started.'
+            
         ]
     },
     narrative: [
@@ -171,39 +179,50 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
         id: 'empathize',
         title: 'Empathize — What we heard',
         content: [
-          { type: 'quote', text: '“I just want a small fishing boat… but I have no idea which make or model.”' },
-          'That quote came from one of many first-time buyers we interviewed. It captured a growing pattern we were seeing in session replays and support logs: people were motivated, curious — and completely overwhelmed. They didn’t speak in brand or spec terms. They spoke in goals, feelings, constraints: “affordable,” “family-sized,” “close to me.”',
-          'Yet the old search engine expected precision. Rigid filters and keyword matching forced shoppers to guess which category or brand fit their needs. Many bounced before ever seeing a relevant boat.',
-          'Cross-device session data revealed similar pain points on both desktop and mobile, where rigid filters and inconsistent layouts created unnecessary cognitive load.',
+          { type: 'quote', text: 'I gave up trying to filter — it was too much work just to get started.' },
+          'That line captured a pattern we saw across interviews and session data: the experience wasn’t broken, but it created friction early.',
+          'Filters required too many inputs up front. On mobile, the UI felt dense and uninviting. Search results lacked hierarchy. It was hard to compare listings at a glance. Details pages buried key specs and missed the moments where trust needed to be built.',
+          'Users came in with clear goals — but the experience forced them to figure out the system before they could act.',
+        ],
+        artifacts: [
+            { component: 'BoatTraderEmpathizeArtifact1', caption: 'User interview insights and session replay heatmaps.' },
+            { component: 'BoatTraderEmpathizeArtifact2', caption: 'Old search results page, showing information overload.' },
+            { component: 'BoatTraderEmpathizeArtifact3', caption: 'Old details screen, showing dense information layout.' }
         ]
       },
       {
         id: 'define',
         title: 'Define — What was broken',
         content: [
-          'Search wasn’t broken in function — it was broken in feel. The experience rewarded product knowledge and punished uncertainty. Search-to-lead conversion was low. Time-to-discovery was long. And novice users often abandoned after typing queries like “tritoon with 150hp under $30k.”',
-          'Search behavior also differed dramatically across devices — mobile users struggled with dense filter panels, while desktop users faced cognitive overload from too many simultaneous controls. The business needed to increase qualified leads and shopper engagement across devices.',
+          'Filters, search results, and product pages worked — but not together. Each step added friction instead of building momentum.',
+          'Filters required upfront precision without guidance. Results overwhelmed with dense cards and unclear hierarchy. Details pages delayed key specs and calls to action.',
+          'From first tap to final decision, the flow assumed expertise — not exploration. It made confident users slow down and new users drop off. Behavioral data backed it up: low filter usage, high bounce from results, and exits before conversion.',
+          'The goal was clear: redesign the discovery experience to be intuitive, cross-platform, and supportive — reducing effort while guiding every level of shopper toward action.'
+        ],
+        artifacts: [
+            { component: 'BoatTraderDefineArtifact1', caption: 'Early wireframes and user flow diagrams.' }
         ]
       },
       {
         id: 'ideate',
         title: 'Ideate — What we imagined',
         content: [
-            'What if search behaved more like a conversation than a form?',
-            'We mapped out a vision: a smart, natural-language-powered search bar that could detect intent — price, type, location, features — and convert that into instant, scannable results with consistent usability across mobile and desktop. It would combine the freedom of open input with the guidance of smart filters.',
-            'We co-created early concepts with engineering and data science to ensure feasibility. And we scoped it as a modular component to integrate with other marketplaces later.',
-            'Every pattern was designed responsively, ensuring the conversational experience felt equally natural on touch and keyboard inputs.'
+            'I reframed discovery into a mobile-first flow that simplified search, surfaced relevance faster, and helped users act with confidence.',
+            'The new experience prioritized:',
+            { type: 'principle', title: 'Filters that guide, not gatekeep', description: 'Progressive steps replace dense dropdowns—adapting to user input and revealing only what’s relevant to reduce overwhelm.' },
+            { type: 'principle', title: 'Results that invite quick scanning', description: 'Redesigned listing cards with larger visuals, prioritized specs, and visual cues that reward momentum and speed up comparison.' },
+            { type: 'principle', title: 'Product pages that build desire → action', description: 'Elevated imagery, clear spec hierarchy, and well-timed CTAs support emotional clarity and action at the right moment.' },
+            { type: 'post_principles_paragraph', text: 'Each element was built as a scalable, reusable pattern—ensuring consistency across platforms and adaptability across product types.' }
         ]
       },
       {
         id: 'test',
         title: 'Prototype & Test — What we built and learned',
         content: [
-            'We prototyped fast across web and mobile. A hybrid query bar with real-time chip suggestions replaced dropdown-heavy filter panels. As users typed ‘pontoon boat near Austin under 20k,’ the system detected boat type, region, and budget — and displayed relevant listings instantly, regardless of device.',
-            'We ran moderated tests remotely and A/B tests post-MVP. Users described it as “so much easier” and “more human.”',
-            { type: 'quote', text: '“It feels like the site actually understands me now.”', author: "— Usability test participant" },
-            'We validated interaction parity across touch and desktop — ensuring filters, chips, and fallback logic behaved predictably on both.',
-            'We adjusted phrasing, chip interactions, and fallback logic. Filters became helpful, not overwhelming.'
+            'We prototyped a streamlined search experience with dynamic filters and intent-driven chips, replacing the dropdown-heavy interface. Real-time feedback made discovery feel faster and more intuitive.',
+            'Testing focused on decision clarity — not just task completion. Users described the new flow as “quicker to trust” and “easier to narrow things down.”',
+            { type: 'quote', text: 'It feels like the app is finally helping me narrow things down — not making me work for it.', author: "Usability test participant" },
+            'We refined phrasing, chip logic, and defaults through iterative rounds, ensuring mobile and desktop parity throughout. The result: a search system that reduced effort, built confidence, and guided action.',
         ],
         artifacts: [
           { component: 'FiltersBefore', caption: 'BEFORE: Dense filter panels forced users to guess and scroll endlessly.' },
@@ -218,8 +237,8 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
         id: 'deliver',
         title: 'Deliver — What changed',
         content: [
-          'With Smart Search launched, shoppers reached listings 40% faster across devices. Search-to-view conversion increased, especially among new mobile users. Leads from search jumped 5%, and satisfaction scores rose in follow-ups.',
-          'The design scaled across platforms and brands, using shared responsive components. Internally, it became a model for how personalization, accessibility, and systems thinking could work hand in hand.',
+          'With the redesigned discovery system live, shoppers reached listings 40% faster across devices. Search-to-lead conversion climbed, especially among first-time mobile users. Leads rose +5%, and satisfaction improved in follow-ups.',
+          'The system scaled cleanly across brands using responsive, accessible components—setting a new internal benchmark for how clarity, speed, and design systems can drive both trust and performance.',
         ]
       },
     ],
@@ -273,6 +292,9 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
             'I led the end-to-end UX process, from research and journey mapping to UI design and prototyping. My primary focus was to understand the emotional role of “saving” an item.',
             'Interviews with active and aspirational buyers revealed that saving was often tied to dreaming, comparing, or waiting for the right moment. We mapped the journey gaps where users saved something but failed to return, often due to friction, memory loss, or broken context.',
             'Usage pattern analysis helped us isolate the specific drop-off points after a user saved an item, giving us a clear target for intervention.',
+        ],
+        artifacts: [
+            { component: 'GenericEmpathizeArtifact', caption: 'User journey map and interview insights.' }
         ]
       },
       {
@@ -284,6 +306,9 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
             { type: 'quote', text: '“I found the perfect boat last night… but I can’t remember how I got there.”' },
             'The core problem was a lack of emotional and functional continuity. The experience felt transactional, not personal. Users didn\'t feel "remembered" by the app, which eroded trust and made re-engagement feel like a chore.',
             'Our goal was to transform the feature from a simple bookmarking tool into a cohesive, accessible hub that proactively re-engages users by remembering their preferences and context.',
+        ],
+        artifacts: [
+            { component: 'GenericDefineArtifact', caption: 'User flow diagrams and competitive analysis.' }
         ]
       },
       {
@@ -359,6 +384,9 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
         content: [
             'My first step was to own the UX architecture and visual language foundations. I conducted a full audit of all live product surfaces across both web and mobile apps for all three brands.',
             'This led to the creation of a comprehensive component inventory which revealed a critical insight: there was a 70% duplication of components across the brands. This was the key data point we needed to make the case for a unified system.',
+        ],
+        artifacts: [
+            { component: 'GenericDefineArtifact', caption: 'UI audit and component inventory.' }
         ]
       },
       {
@@ -440,6 +468,9 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
             'Shoppers struggled to describe what they wanted — especially first-time buyers unfamiliar with model names or specs. Filters were intimidating, and many abandoned search mid-flow.',
             { type: 'quote', text: '“I saw a boat I loved… but had no idea what to search for.”' },
             'We needed a visual-first, low-friction way to turn curiosity into discovery.'
+        ],
+        artifacts: [
+            { component: 'GenericDefineArtifact', caption: 'User research findings and problem statement.' }
         ]
       },
       {

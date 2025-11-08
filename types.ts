@@ -19,6 +19,7 @@ export interface Pillar {
 }
 
 export interface Value {
+  icon: string;
   title:string;
   proof: string;
 }
@@ -43,10 +44,15 @@ export interface NarrativeArtifact {
   caption: string;
 }
 
+export interface Principle {
+  title: string;
+  description: string;
+}
+
 export interface NarrativeSection {
     id: string;
     title: string;
-    content: (string | { type: 'quote'; text: string; author?: string })[];
+    content: (string | { type: 'quote'; text: string; author?: string } | { type: 'principle'; title: string; description: string } | { type: 'post_principles_paragraph'; text: string })[];
     artifacts?: NarrativeArtifact[];
 }
 

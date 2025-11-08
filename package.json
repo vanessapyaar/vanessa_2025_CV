@@ -9,15 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react-dom": "^19.2.0",
+    "lucide-react": "^0.552.0",
     "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "swiper": "^11.1.4"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "debug": "^4.3.5",
     "typescript": "~5.8.2",
-    "vite": "^6.2.0",
-    "debug": "^4.3.5"
+    "vite": "^6.2.0"
   }
 }

@@ -742,19 +742,17 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
                         </div>
                     )}
                 </div>
-                {artifacts.length > 1 && (
-                    <div className="hidden md:flex justify-center gap-2 mt-4 max-w-5xl overflow-x-auto pb-2">
-                        {artifacts.map((artifact, index) => (
-                            <button 
-                                key={index} 
-                                className={`flex-shrink-0 w-20 h-16 border-2 rounded-md overflow-hidden ${index === currentIndex ? 'border-accent' : 'border-transparent'} hover:border-accent-light transition-colors`}
-                                onClick={(e) => { e.stopPropagation(); setCurrentIndex(index); resetZoom(); }}
-                            >
-                                <Placeholder name={artifact.component} className="w-full h-full object-cover" />
-                            </button>
-                        ))}
-                    </div>
-                )}
+                <div className="hidden md:flex justify-center gap-2 mt-4 max-w-5xl overflow-x-auto pb-2 flex-shrink-0">
+                    {artifacts.map((artifact, index) => (
+                        <button 
+                            key={index} 
+                            className={`flex-shrink-0 w-20 h-16 border-2 rounded-md overflow-hidden ${index === currentIndex ? 'border-accent' : 'border-transparent'} hover:border-accent-light transition-colors`}
+                            onClick={(e) => { e.stopPropagation(); setCurrentIndex(index); resetZoom(); }}
+                        >
+                            <Placeholder key={artifact.component} name={artifact.component} className="w-full h-full object-cover" />
+                        </button>
+                    ))}
+                </div>
                 <div className="text-center text-white/80 max-w-3xl">
                     <p className="font-semibold text-lg">{currentArtifact.caption}</p>
                     <p className="text-sm mt-1">{currentIndex + 1} / {artifacts.length}</p>
@@ -895,48 +893,43 @@ const StandardProjectDetail = ({ project, onImageClick }: { project: StandardPro
                         <div key={activeSection.id} className="animate-fade-in">
                            <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mb-6">{activeSection.title}</h3>
                             <div className="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 space-y-4">
-                                                                                                {(() => {
-                                                                                                    const principlesIntroIndex = activeSection.content.findIndex(item => typeof item === 'string' && item.includes('three core principles'));
-                                                                                                    const principlesIntro = principlesIntroIndex !== -1 ? activeSection.content[principlesIntroIndex] : null;
-                                                                                                    const principles = activeSection.content.filter(item => (item as any).type === 'principle');
-                                                                                                    const otherContent = activeSection.content.filter((item, index) => {
-                                                                                                        if (index === principlesIntroIndex) return false; // Exclude the intro string if found
-                                                                                                        return typeof item === 'string' || (item as any).type === 'quote';
-                                                                                                    });
-                                                                
-                                                                                                    return (
-                                                                                                        <>
-                                                                                                            {otherContent.map((item, index) => {
-                                                                                                                if (typeof item === 'string') return <p key={index}>{item}</p>;
-                                                                                                                if (item.type === 'quote') {
-                                                                                                                    return (
-                                                                                                                         <blockquote key={index} className="border-l-4 border-accent pl-4 my-6 text-slate-500 dark:text-slate-400">
-                                                                                                                            <p className="text-xl italic">"{item.text}"</p>
-                                                                                                                            {item.author && <cite className="not-italic font-semibold block mt-2">— {item.author}</cite>}
-                                                                                                                        </blockquote>
-                                                                                                                    );
-                                                                                                                }
-                                                                                                                return null;
-                                                                                                            })}
-                                                                                                            {principlesIntro && <p>{principlesIntro}</p>}
-                                                                                                                                                        {principles.length > 0 && (
-                                                                                                                                                            <div className="grid md:grid-cols-3 gap-4">                                                                                                                    {principles.map((item, index) => (
-                                                                                                                        <div key={index} className="my-4 p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
-                                                                                                                            <p className="font-bold text-slate-900 dark:text-white">{(item as any).title}</p>
-                                                                                                                            <p className="text-sm text-slate-600 dark:text-slate-300">{(item as any).description}</p>
-                                                                                                                        </div>
-                                                                                                                    ))}
-                                                                                                                </div>
-                                                                                                            )}
-                                                                                                            {activeSection.content.map((item, index) => {
-                                                                                                                if ((item as any).type === 'post_principles_paragraph') {
-                                                                                                                    return <p key={index}>{(item as any).text}</p>;
-                                                                                                                }
-                                                                                                                return null;
-                                                                                                            })}
-                                                                                                        </>
-                                                                                                    );
-                                                                                                })()}                            </div>
+                                {activeSection.content.map((item, index) => {
+                                    if (typeof item === 'string') {
+                                        return <p key={index}>{item}</p>;
+                                    }
+                                    if (item.type === 'quote') {
+                                        return (
+                                            <blockquote key={index} className="border-l-4 border-accent pl-4 my-6 text-slate-500 dark:text-slate-400">
+                                                <p className="text-xl italic">"{item.text}"</p>
+                                                {item.author && <cite className="not-italic font-semibold block mt-2">— {item.author}</cite>}
+                                            </blockquote>
+                                        );
+                                    }
+                                    return null;
+                                })}
+                            </div>
+                            {/* Render principles separately to apply grid layout */}
+                            <div className="grid md:grid-cols-3 gap-4 mt-8">
+                                {activeSection.content.map((item, index) => {
+                                    if (item.type === 'principle') {
+                                        return (
+                                            <div key={index} className="my-4 p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                                                <p className="font-bold text-slate-900 dark:text-white">{item.title}</p>
+                                                <p className="text-sm text-slate-600 dark:text-slate-300">{item.description}</p>
+                                            </div>
+                                        );
+                                    }
+                                    return null;
+                                })}
+                            </div>
+                            <div className="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 space-y-4">
+                                {activeSection.content.map((item, index) => {
+                                    if (item.type === 'post_principles_paragraph') {
+                                        return <p key={index}>{item.text}</p>;
+                                    }
+                                    return null;
+                                })}
+                            </div>
 
                             {activeSection.id === 'deliver' && (
                                <div className="grid sm:grid-cols-3 gap-6 my-8 text-center">

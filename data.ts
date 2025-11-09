@@ -3,9 +3,9 @@ import { Project, Pillar, Value, Testimonial, ProjectDetailData } from './types'
 export const PROJECTS: Project[] = [
   {
     id: 'boattrader-app-redesign',
-    tag: 'Marketplace UX • Search Optimization',
-    title: 'BoatTrader App Redesign → From Hesitation to Action',
-    summary: 'Redesigned search, filtering and product details page experience to reduce drop-off and boost engagement.',
+    tag: 'Marketplace UX · Product Discovery',
+    title: 'From Hesitation to Action → Redesigning Search UX',
+    summary: 'Redesigned BoatTrader’s search, filters, and product detail experience to reduce friction and boost engagement.',
     impact: [
       '2× session time on mobile',
       '+60% buyer inquiries',
@@ -168,21 +168,21 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
     overview: {
         title: 'Project Overview',
         content: [
-            'BoatTrader is the largest marine marketplace in the U.S., with 20M+ monthly users.',
-            'But across web and app, many shoppers stalled early—filters were rigid, listings cluttered, and key details were hard to compare. The path from search to action felt fragmented.',
-            'I led a full redesign of the shopping flow across devices—from filters and results to product detail pages. The new system reduced friction, improved clarity, and doubled time-on-site.'
+            'BoatTrader is the largest marine marketplace in the U.S., serving over 20 million monthly users across app and web.',
+            'Despite that scale, most shoppers struggled to move beyond early exploration. Filters were too rigid, scanning was overwhelming, results lacked clarity, and key listing info was buried. Users were dropping off before saving or contacting sellers.',
+            'I led the end-to-end redesign of BoatTrader’s discovery experience—reworking filters, results, and product pages to reduce friction and increase conversion across devices.'
             
         ]
     },
     narrative: [
       {
         id: 'empathize',
-        title: 'Empathize — What we heard',
+        title: 'Empathize — Understanding the Friction',
         content: [
           { type: 'quote', text: 'I wasn’t even sure what to pick. I gave up before I found anything.' },
-          'That sentiment captured what we saw across interviews and analytics: shoppers hit friction early and lost momentum fast.',
-          'Filters asked for precision without offering guidance. On mobile, layouts felt dense and hard to scan. Key specs were buried or delayed, and users had to work to compare. Even confident buyers slowed down. Others dropped off before making progress.',
-          'Data backed it up: filter usage was low, bounce spiked after search, and drop-off before high-intent actions was high — especially on mobile.',
+          'Early interviews and analytics revealed a common frustration: shoppers felt lost at the very start of discovery.',
+          'Industry benchmarks confirmed the pattern: 78% of mobile retail sites underperform on product listing UX, and 57% offer poor filtering experiences. Our own data echoed this—low filter engagement and high bounce rates right after search.',
+          'Users felt pressured to apply precise filters without guidance, while cramped mobile layouts made details hard to scan. Key specs were buried, slowing confident users and discouraging new ones. In short, discovery wasn’t broken—but it created friction.',
         ],
         artifacts: [
             { component: 'BoatTraderEmpathizeArtifact1', caption: 'User interview insights and session replay heatmaps.' },
@@ -192,11 +192,11 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
       },
       {
         id: 'define',
-        title: 'Define — What was broken',
+        title: 'Define — Uncovering the Gaps',
         content: [
           'The journey worked in parts, but not together. Filters overwhelmed upfront. Results were cluttered and hard to compare. Product pages buried key info and surfaced CTAs too late.',
-          'Each screen added friction instead of helping users move forward. The old flow assumed shoppers knew what they wanted — but most needed help narrowing in.',
-          'My goal was to design a search & discovery experience that simplified decision-making across devices — removing friction, building confidence, and creating space for exploration.'
+          'Each screen added friction instead of helping users move forward. The full flow assumed shoppers knew what they wanted — but most needed help narrowing in.',
+          'My goal was to design a discovery system that simplified decision-making across devices — removing friction, building confidence, and creating space for exploration.'
         ],
         artifacts: [
             { component: 'BoatTraderDefineArtifact1', caption: 'Early wireframes and user flow diagrams.' }
@@ -204,7 +204,7 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
       },
       {
         id: 'ideate',
-        title: 'Ideate — What we imagined',
+        title: 'Ideate — Designing for Momentum',
         content: [
             'I reframed the flow around progressive guidance, speed, and clarity—especially for mobile users who felt the most friction.',
             'The new experience prioritized:',
@@ -236,7 +236,7 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
       },
       {
         id: 'test',
-        title: 'Prototype & Test — What we built and learned',
+        title: 'Prototype & Test — Validating What Matters',
         content: [
             'I prototyped new flows and tested them across mobile and desktop. Users immediately noticed the difference: filtering felt faster, scanning was easier, and choosing felt more confident.',
             { type: 'quote', text: 'It feels like the app is finally helping me narrow things down — not making me work for it.', author: "Usability test participant" },
@@ -253,7 +253,7 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
       },
       {
         id: 'deliver',
-        title: 'Deliver — What changed',
+        title: 'Deliver — Scaled for Growth',
         content: [
           'Once live, the redesign delivered clear results.',
           'Most importantly, users reached decisions faster and felt more in control. Internally, the new patterns became a benchmark for how behavioral UX and scalable systems can drive measurable growth across brands.',
@@ -267,7 +267,7 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
       },
     ],
     uiShowcase: {
-        title: 'Visualizing the Change',
+        title: 'Key Changes by Screen',
         images: [
             { component: 'FiltersAfter', caption: 'A guided, conversational flow with smart suggestions.' },
             { component: 'ResultsAfter', caption: 'Large, scan-friendly image stacks for quick evaluation.' },
@@ -278,7 +278,7 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
         ]
     },
     reflection: {
-        title: 'Reflect — Why it matters',
+        title: 'Outcomes & Takeaways',
         content: [
           'This wasn’t just a UX win — it was a clarity win. We helped users feel seen, understood, and supported — on any device, from their very first query.',
           'It reminded me that great design starts by listening, scales through systems, and succeeds when cross-functional teams build toward the same outcome.',

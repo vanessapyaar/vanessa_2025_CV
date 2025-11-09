@@ -62,6 +62,7 @@ export interface NarrativeSection {
     title: string;
     content: (string | { type: 'quote'; text: string; author?: string } | { type: 'principle'; title: string; description: string } | { type: 'post_principles_paragraph'; text: string })[];
     artifacts?: NarrativeArtifact[];
+    metricsGrid?: OutcomeMetric[];
 }
 
 export interface UIShowcaseImage {

@@ -30,6 +30,13 @@ export interface Testimonial {
     role: string;
 }
 
+export interface Hotspot {
+  x: number;
+  y: number;
+  title: string;
+  description: string;
+}
+
 // --- Project Detail Page Types ---
 
 // Base types shared across projects
@@ -42,6 +49,7 @@ export interface OutcomeMetric {
 export interface NarrativeArtifact {
   component: string;
   caption: string;
+  hotspots?: Hotspot[];
 }
 
 export interface Principle {
@@ -59,6 +67,7 @@ export interface NarrativeSection {
 export interface UIShowcaseImage {
     component: string;
     caption: string;
+    hotspots?: Hotspot[];
 }
 
 export interface StandardProjectData {

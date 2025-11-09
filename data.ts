@@ -3,13 +3,13 @@ import { Project, Pillar, Value, Testimonial, ProjectDetailData } from './types'
 export const PROJECTS: Project[] = [
   {
     id: 'boattrader-app-redesign',
-    tag: 'Marketplace • Personalization & Discovery',
-    title: 'Designing the Discovery System → From Friction to Flow',
-    summary: 'Redesigned BoatTrader’s cross-platform discovery experience to turn hesitation into momentum. Introduced intent-driven search, contextual filters, and more scannable results.',
+    tag: 'Marketplace UX • Search Optimization',
+    title: 'BoatTrader App Redesign → From Hesitation to Action',
+    summary: 'Redesigned search, filtering and product details page experience to reduce drop-off and boost engagement.',
     impact: [
-      '40% faster path to relevant listings',
-      'Higher conversion from search to item view',
-      '+5% qualified leads from search',
+      '2× session time on mobile',
+      '+60% buyer inquiries',
+      '+20% saved products per session',
     ],
     thumbnailComponent: 'BoatTraderAppThumbnail',
   },
@@ -17,7 +17,7 @@ export const PROJECTS: Project[] = [
     id: 'seller-dashboard-redesign',
     tag: 'Retention • Engagement Systems',
     title: 'Saved Boats Redesign → Higher Re-Engagement',
-    summary: 'Re-imagined the saved items and search flow to foster return visits and user trust. Designed for effortless continuity across sessions, turning “browse moments” into lasting relationships.',
+    summary: 'Re-imagined the saved items and search flow to foster return visits and user trust. Designed for effortless continuity across sessions.',
     impact: [
       '↑ Repeat visits and interactions',
       '↑ Items saved per user',
@@ -152,13 +152,13 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
   'boattrader-app-redesign': {
     id: 'boattrader-app-redesign',
     hero: {
-      title: 'Designing the Discovery System — From Friction to Flow',
-      subtitle: '40% faster product discovery across mobile and desktop through natural language and intent detection.',
+      title: 'BoatTrader Search Redesign: From Filters to Product Pages',
+      subtitle: 'Streamlining exploration into confident action across devices',
       impact: [
-        { value: '40%', label: 'faster product discovery' },
-        { value: '+5%', label: 'leads from search' },
-        { value: '↑', label: 'search-to-view conversion' },
-        { value: '↑', label: 'mobile + web parity achieved' },
+        { value: '+60%', label: 'buyer inquiries' },
+        { value: '2x', label: 'session time' },
+        { value: '+20%', label: 'saved products per session' },
+        { value: '4.5 to ↑4.8', label: 'app store ratings' },
       ],
       imageComponent: 'BoatTraderHeroImage',
       role: 'Lead UX Designer (Research → Visual Design)',
@@ -166,11 +166,11 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
       timeframe: '6 weeks',
     },
     overview: {
-        title: 'BoatTrader Smart Search',
+        title: 'Project Overview',
         content: [
-            'I redesigned BoatTrader’s end-to-end discovery experience — from search and filters to result cards and product details — to help shoppers go from browsing to decision faster and with more confidence.',
-            'The existing journey overwhelmed users with dense filters, unclear listing hierarchies, and inconsistent mobile behavior. The redesign focused on clarity: surfacing intent-driven filters, simplifying comparison, and reducing hesitation at every step.',
-            'The result was a responsive, modular system that improved engagement, lifted conversion, and helped real buyers feel in control, no matter where they started.'
+            'BoatTrader is the largest marine marketplace in the U.S., with 20M+ monthly users.',
+            'But across web and app, many shoppers stalled early—filters were rigid, listings cluttered, and key details were hard to compare. The path from search to action felt fragmented.',
+            'I led a full redesign of the shopping flow across devices—from filters and results to product detail pages. The new system reduced friction, improved clarity, and doubled time-on-site.'
             
         ]
     },
@@ -179,10 +179,10 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
         id: 'empathize',
         title: 'Empathize — What we heard',
         content: [
-          { type: 'quote', text: 'I gave up trying to filter — it was too much work just to get started.' },
-          'That line captured a pattern we saw across interviews and session data: the experience wasn’t broken, but it created friction early.',
-          'Filters required too many inputs up front. On mobile, the UI felt dense and uninviting. Search results lacked hierarchy. It was hard to compare listings at a glance. Details pages buried key specs and missed the moments where trust needed to be built.',
-          'Users came in with clear goals — but the experience forced them to figure out the system before they could act.',
+          { type: 'quote', text: 'I wasn’t even sure what to pick. I gave up before I found anything.' },
+          'That sentiment captured what we saw across interviews and analytics: shoppers hit friction early and lost momentum fast.',
+          'Filters asked for precision without offering guidance. On mobile, layouts felt dense and hard to scan. Key specs were buried or delayed, and users had to work to compare. Even confident buyers slowed down. Others dropped off before making progress.',
+          'Data backed it up: filter usage was low, bounce spiked after search, and drop-off before high-intent actions was high — especially on mobile.',
         ],
         artifacts: [
             { component: 'BoatTraderEmpathizeArtifact1', caption: 'User interview insights and session replay heatmaps.' },
@@ -194,10 +194,9 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
         id: 'define',
         title: 'Define — What was broken',
         content: [
-          'Filters, search results, and product pages worked — but not together. Each step added friction instead of building momentum.',
-          'Filters required upfront precision without guidance. Results overwhelmed with dense cards and unclear hierarchy. Details pages delayed key specs and calls to action.',
-          'From first tap to final decision, the flow assumed expertise — not exploration. It made confident users slow down and new users drop off. Behavioral data backed it up: low filter usage, high bounce from results, and exits before conversion.',
-          'The goal was clear: redesign the discovery experience to be intuitive, cross-platform, and supportive — reducing effort while guiding every level of shopper toward action.'
+          'The journey worked in parts, but not together. Filters overwhelmed upfront. Results were cluttered and hard to compare. Product pages buried key info and surfaced CTAs too late.',
+          'Each screen added friction instead of helping users move forward. The old flow assumed shoppers knew what they wanted — but most needed help narrowing in.',
+          'My goal was to design a search & discovery experience that simplified decision-making across devices — removing friction, building confidence, and creating space for exploration.'
         ],
         artifacts: [
             { component: 'BoatTraderDefineArtifact1', caption: 'Early wireframes and user flow diagrams.' }
@@ -207,22 +206,41 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
         id: 'ideate',
         title: 'Ideate — What we imagined',
         content: [
-            'I reframed discovery into a mobile-first flow that simplified search, surfaced relevance faster, and helped users act with confidence.',
+            'I reframed the flow around progressive guidance, speed, and clarity—especially for mobile users who felt the most friction.',
             'The new experience prioritized:',
-            { type: 'principle', title: 'Filters that guide, not gatekeep', description: 'Progressive steps replace dense dropdowns—adapting to user input and revealing only what’s relevant to reduce overwhelm.' },
-            { type: 'principle', title: 'Results that invite quick scanning', description: 'Redesigned listing cards with larger visuals, prioritized specs, and visual cues that reward momentum and speed up comparison.' },
-            { type: 'principle', title: 'Product pages that build desire → action', description: 'Elevated imagery, clear spec hierarchy, and well-timed CTAs support emotional clarity and action at the right moment.' },
-            { type: 'post_principles_paragraph', text: 'Each element was built as a scalable, reusable pattern—ensuring consistency across platforms and adaptability across product types.' }
+            { type: 'principle', title: 'Search results designed for scanning', description: 'Bigger images, clear spec tags, and visual hierarchy made product cards easier to browse and skim.' },
+
+            { type: 'principle', title: 'Filters that guide, not gatekeep', description: 'Smart defaults, chips, and sliders replaced long dropdowns. As users typed or tapped, only relevant filters appeared.' },
+             { type: 'principle', title: 'Product pages that drive action', description: 'Key specs surfaced early. Visuals stacked for quick review. CTAs were placed where intent peaks — no more buried “Buy” buttons.' },
+            { type: 'post_principles_paragraph', text: 'Everything was built into our design system to ensure consistency and easy adoption across brands.' }
+        ],
+        artifacts: [
+          {
+            component: 'BoatTraderIdeateArtifact',
+            caption: 'Initial concepts for the search results page, focusing on visual hierarchy and scannability.',
+            hotspots: [
+              { x: 10, y: 20, title: 'Card-Based Results', description: 'Explorations of different card styles to optimize for scannability and visual appeal.' },
+              { x: 50, y: 50, title: 'Visual Hierarchy', description: 'Experiments with typography and spacing to guide the user\'s eye and prioritize information.' },
+              { x: 80, y: 70, title: 'Data Density', description: 'Testing different levels of information density to balance clarity and completeness.' }
+            ]
+          },
+          {
+            component: 'ProductPageExplorations',
+            caption: 'Further explorations of the product details page, experimenting with different image displays and information density.'
+          },
+          {
+            component: 'FilterPageExplorations',
+            caption: 'Early concepts for the filter page, exploring different layouts and interaction models.'
+          }
         ]
       },
       {
         id: 'test',
         title: 'Prototype & Test — What we built and learned',
         content: [
-            'We prototyped a streamlined search experience with dynamic filters and intent-driven chips, replacing the dropdown-heavy interface. Real-time feedback made discovery feel faster and more intuitive.',
-            'Testing focused on decision clarity — not just task completion. Users described the new flow as “quicker to trust” and “easier to narrow things down.”',
+            'I prototyped new flows and tested them across mobile and desktop. Users immediately noticed the difference: filtering felt faster, scanning was easier, and choosing felt more confident.',
             { type: 'quote', text: 'It feels like the app is finally helping me narrow things down — not making me work for it.', author: "Usability test participant" },
-            'We refined phrasing, chip logic, and defaults through iterative rounds, ensuring mobile and desktop parity throughout. The result: a search system that reduced effort, built confidence, and guided action.',
+            'Usability tests and A/B experiments confirmed improvements in speed, clarity, and engagement. We refined chips, tweaked copy, and optimized layouts for thumb-friendly interactions.',
         ],
         artifacts: [
           { component: 'FiltersBefore', caption: 'BEFORE: Dense filter panels forced users to guess and scroll endlessly.' },
@@ -237,8 +255,14 @@ export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
         id: 'deliver',
         title: 'Deliver — What changed',
         content: [
-          'With the redesigned discovery system live, shoppers reached listings 40% faster across devices. Search-to-lead conversion climbed, especially among first-time mobile users. Leads rose +5%, and satisfaction improved in follow-ups.',
-          'The system scaled cleanly across brands using responsive, accessible components—setting a new internal benchmark for how clarity, speed, and design systems can drive both trust and performance.',
+          'Once live, the redesign delivered clear results.',
+          'Most importantly, users reached decisions faster and felt more in control. Internally, the new patterns became a benchmark for how behavioral UX and scalable systems can drive measurable growth across brands.',
+        ],
+        metricsGrid: [
+          { value: '+60%', label: 'buyer inquiries' },
+          { value: '2x', label: 'session time' },
+          { value: '+20%', label: 'saved products per session' },
+          { value: '4.5 to ↑4.8', label: 'app store ratings' },
         ]
       },
     ],

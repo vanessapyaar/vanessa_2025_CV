@@ -32,7 +32,7 @@ const Icon = ({ name, ...props }: { name: string; [key: string]: any; }) => {
 
 // --- PLACEHOLDERS & THUMBNAILS ---
 const Placeholders = {
-  BoatTraderAppThumbnail: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/gGWqCS99IQy4g6nIxNy5cJso2IY.jpg" alt="BoatTrader App Redesign" className="aspect-video w-full object-cover" />,
+  BoatTraderAppThumbnail: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/BT-App-Hero-Shot.png" alt="BoatTrader App Redesign" className="aspect-video w-full object-cover" />,
   SellerDashboardThumbnail: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/seller-dashboard.jpg" alt="Seller Dashboard Redesign" className="aspect-video w-full object-cover" />,
   DesignSystemThumbnail: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/Design-System-Thumb.png" alt="Unified Design System" className="aspect-video w-full object-cover" />,
   AIImageSearchThumbnail: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/AI-Search-Thumb.png" alt="AI Image Search Project" className="aspect-video w-full object-cover" />,
@@ -74,8 +74,11 @@ const Placeholders = {
   BoatTraderEmpathizeArtifact3: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/details%20screen.png" alt="Old Details Screen" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
   BoatTraderDefineArtifact1: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/bt-artifacts.png" alt="BoatTrader Define Artifact" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
   GenericDefineArtifact: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Define Artifact Placeholder</div>,
+  BoatTraderIdeateArtifact: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/srp-explorations.png" alt="BoatTrader Ideate Artifact" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
   BoatTraderIdeateArtifact1: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/srp-explorations.png" alt="BoatTrader Ideate Artifact" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
   GenericIdeateArtifact: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Ideate Artifact Placeholder</div>,
+  ProductPageExplorations: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/product-page-explorations.png" alt="Product Page Explorations" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
+  FilterPageExplorations: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/filter%20Explorations.png" alt="Filter Page Explorations" className="aspect-auto max-h-[75vh] rounded-lg object-contain" />,
 };
 const Placeholder = ({ name, ...props }: { name: string; [key: string]: any; }) => { const Comp = Placeholders[name]; return Comp ? <Comp {...props} /> : null; };
 
@@ -439,7 +442,7 @@ const DetailSection = ({ children, className = '' }: { children?: React.ReactNod
     const ref = useFadeIn();
     return <section ref={ref} className={`fade-in-section container mx-auto px-6 py-12 md:py-16 ${className}`}>{children}</section>;
 };
-const ProjectHero = ({ hero, onImageClick }: { hero: StandardProjectData['hero'], onImageClick: (imageName: string) => void }) => (
+const ProjectHero = ({ hero, onImageClick }: { hero: StandardProjectData['hero'], onImageClick: (artifacts: NarrativeArtifact[], index: number) => void }) => (
     <div className="bg-slate-100 dark:bg-slate-800/50">
         <div className="container mx-auto px-6 pt-20 pb-16 text-center">
             {hero.category && <p className="text-sm font-semibold text-accent dark:text-accent-light mb-2">{hero.category}</p>}
@@ -454,7 +457,7 @@ const ProjectHero = ({ hero, onImageClick }: { hero: StandardProjectData['hero']
                 ))}
             </div>
             {hero.imageComponent && 
-                <button onClick={() => onImageClick(hero.imageComponent as string)} className="w-full cursor-pointer group">
+                <button onClick={() => onImageClick([{ component: hero.imageComponent, caption: hero.title, hotspots: hero.hotspots }], 0)} className="w-full cursor-pointer group">
                     <div className="group-hover:scale-[1.02] transition-transform duration-300">
                          <Placeholder name={hero.imageComponent} />
                     </div>
@@ -497,28 +500,39 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
     const [lastTouchX, setLastTouchX] = useState(0);
     const [lastTouchY, setLastTouchY] = useState(0);
     const imageRef = useRef<HTMLDivElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const [activeHotspot, setActiveHotspot] = useState<number | null>(null);
 
-    const goToPrevious = () => {
-        setScale(1); setTranslateX(0); setTranslateY(0); // Reset zoom/pan on slide change
+    const currentArtifact = artifacts[currentIndex];
+    const hasHotspots = currentArtifact.hotspots && currentArtifact.hotspots.length > 0;
+
+    const goToPrevious = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setScale(1); setTranslateX(0); setTranslateY(0);
+        setActiveHotspot(null);
         const isFirstSlide = currentIndex === 0;
         const newIndex = isFirstSlide ? artifacts.length - 1 : currentIndex - 1;
         setCurrentIndex(newIndex);
     };
 
-    const goToNext = () => {
-        setScale(1); setTranslateX(0); setTranslateY(0); // Reset zoom/pan on slide change
+    const goToNext = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setScale(1); setTranslateX(0); setTranslateY(0);
+        setActiveHotspot(null);
         const isLastSlide = currentIndex === artifacts.length - 1;
         const newIndex = isLastSlide ? 0 : currentIndex + 1;
         setCurrentIndex(newIndex);
     };
     
     const resetZoom = () => {
+        if (hasHotspots) return;
         setScale(1);
         setTranslateX(0);
         setTranslateY(0);
     };
 
     const handleMouseDown = (e: React.MouseEvent) => {
+        if (hasHotspots) return;
         if (scale > 1) {
             setIsPanning(true);
             setStartPanX(e.clientX - translateX);
@@ -527,39 +541,41 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
     };
 
     const handleMouseMove = (e: React.MouseEvent) => {
-        if (!isPanning) return;
+        if (hasHotspots || !isPanning) return;
         setTranslateX(e.clientX - startPanX);
         setTranslateY(e.clientY - startPanY);
     };
 
     const handleMouseUp = () => {
+        if (hasHotspots) return;
         setIsPanning(false);
     };
 
     const handleMouseLeave = () => {
+        if (hasHotspots) return;
         setIsPanning(false);
     };
 
     const handleWheel = (e: React.WheelEvent) => {
+        if (hasHotspots) return;
         e.preventDefault();
         const scaleAmount = 0.1;
         const newScale = e.deltaY < 0 ? scale * (1 + scaleAmount) : scale / (1 + scaleAmount);
         
-        // Limit zoom level
         if (newScale < 1) {
             resetZoom();
             return;
         }
-        if (newScale > 5) return; // Max zoom 5x
+        if (newScale > 5) return;
 
         setScale(newScale);
     };
 
     const handleDoubleClick = () => {
+        if (hasHotspots) return;
         resetZoom();
     };
 
-    // Touch event handlers
     const getDistance = (touches: TouchList) => {
         if (touches.length < 2) return 0;
         const dx = touches[0].clientX - touches[1].clientX;
@@ -568,9 +584,10 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
     };
 
     const handleTouchStart = (e: React.TouchEvent) => {
+        if (hasHotspots) return;
         if (e.touches.length === 2) {
             setLastTouchDistance(getDistance(e.touches));
-            setIsPanning(false); // Disable panning when pinching
+            setIsPanning(false);
         } else if (e.touches.length === 1 && scale > 1) {
             setIsPanning(true);
             setLastTouchX(e.touches[0].clientX);
@@ -579,13 +596,14 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
     };
 
     const handleTouchMove = (e: React.TouchEvent) => {
+        if (hasHotspots) return;
         if (e.touches.length === 2) {
             const newDistance = getDistance(e.touches);
             if (lastTouchDistance === 0) {
                 setLastTouchDistance(newDistance);
                 return;
             }
-            const scaleAmount = (newDistance - lastTouchDistance) / 200; // Adjust sensitivity
+            const scaleAmount = (newDistance - lastTouchDistance) / 200;
             let newScale = scale * (1 + scaleAmount);
 
             if (newScale < 1) newScale = 1;
@@ -604,31 +622,49 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
     };
 
     const handleTouchEnd = (e: React.TouchEvent) => {
+        if (hasHotspots) return;
         setIsPanning(false);
         setLastTouchDistance(0);
-        if (scale < 1) resetZoom(); // Snap back if zoomed out too much
+        if (scale < 1) resetZoom();
     };
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
-            if (e.key === 'ArrowLeft') goToPrevious();
-            if (e.key === 'ArrowRight') goToNext();
+            if (e.key === 'ArrowLeft') goToPrevious(e as any);
+            if (e.key === 'ArrowRight') goToNext(e as any);
         };
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
     }, [currentIndex]);
-    
-    const currentArtifact = artifacts[currentIndex];
+
+    const handleHotspotClick = (e: React.MouseEvent, index: number) => {
+        e.stopPropagation();
+        setActiveHotspot(index);
+    };
+
+    const handleNextHotspot = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setActiveHotspot(prev => {
+            if (prev === null) return 0;
+            return (prev + 1) % (currentArtifact.hotspots?.length || 0);
+        });
+    };
+
+    const handleOverlayClick = (e: React.MouseEvent) => {
+        if (contentRef.current && !contentRef.current.contains(e.target as Node)) {
+            onClose();
+        }
+    };
 
     return (
         <div 
             className="fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4 animate-fade-in"
-            onClick={onClose}
+            onClick={handleOverlayClick}
             role="dialog"
             aria-modal="true"
         >
-             <button 
+            <button 
                 onClick={onClose}
                 className="absolute top-4 right-4 text-white/70 text-5xl hover:text-white transition-colors z-20"
                 aria-label="Close modal"
@@ -636,8 +672,8 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
                 &times;
             </button>
             <div 
+                ref={contentRef}
                 className="relative w-full h-full flex flex-col items-center justify-center gap-4" 
-                onClick={e => e.stopPropagation()}
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
@@ -647,16 +683,18 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
-                style={{ cursor: scale > 1 ? (isPanning ? 'grabbing' : 'grab') : 'default' }}
+                style={{ cursor: scale > 1 && !hasHotspots ? (isPanning ? 'grabbing' : 'grab') : 'default' }}
             >
                 <div className="relative flex items-center justify-center w-full max-w-5xl">
-                    <button onClick={goToPrevious} className="absolute left-4 p-2 text-white/70 hover:text-white transition-colors rounded-full bg-black/20 hover:bg-black/40" aria-label="Previous image">
-                         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-                    </button>
+                    <div className="absolute left-0 p-4" style={{ width: '100px', height: '100px' }} onClick={e => e.stopPropagation()}>
+                        {artifacts.length > 1 && <button onClick={goToPrevious} className="p-2 text-white/70 hover:text-white transition-colors rounded-full bg-black/20 hover:bg-black/40" aria-label="Previous image">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                        </button>}
+                    </div>
                     
                     <div 
                         ref={imageRef}
-                        className="w-full flex justify-center items-center"
+                        className="relative w-full flex justify-center items-center"
                         style={{
                             transform: `scale(${scale}) translate(${translateX / scale}px, ${translateY / scale}px)`,
                             transition: isPanning ? 'none' : 'transform 0.1s ease-out',
@@ -664,11 +702,45 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
                         }}
                     >
                          <Placeholder name={currentArtifact.component} />
+                         {hasHotspots && (
+                            <div className="absolute top-0 left-0 w-full h-full">
+                                {currentArtifact.hotspots?.map((hotspot, index) => (
+                                    <button
+                                        key={index}
+                                        className="absolute w-8 h-8 bg-white/80 rounded-full flex items-center justify-center text-accent font-bold text-lg shadow-lg animate-pulse"
+                                        style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
+                                        onClick={(e) => handleHotspotClick(e, index)}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                ))}
+                            </div>
+                         )}
                     </div>
 
-                    <button onClick={goToNext} className="absolute right-4 p-2 text-white/70 hover:text-white transition-colors rounded-full bg-black/20 hover:bg-black/40" aria-label="Next image">
-                         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                    </button>
+                    <div className="absolute right-0 p-4" style={{ width: '100px', height: '100px' }} onClick={e => e.stopPropagation()}>
+                        {artifacts.length > 1 && <button onClick={goToNext} className="p-2 text-white/70 hover:text-white transition-colors rounded-full bg-black/20 hover:bg-black/40" aria-label="Next image">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                        </button>}
+                    </div>
+
+                    {hasHotspots && activeHotspot !== null && (
+                        <div
+                            className="absolute bg-white/90 dark:bg-darkBg/90 backdrop-blur-sm rounded-lg shadow-2xl p-4 max-w-xs w-full text-left"
+                            style={{
+                                left: `${currentArtifact.hotspots?.[activeHotspot].x}%`,
+                                top: `${currentArtifact.hotspots?.[activeHotspot].y}%`,
+                                transform: 'translate(20px, 20px)'
+                            }}
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <h4 className="font-bold text-lg text-slate-900 dark:text-white mb-2">{currentArtifact.hotspots?.[activeHotspot].title}</h4>
+                            <p className="text-sm text-slate-700 dark:text-slate-300 mb-4">{currentArtifact.hotspots?.[activeHotspot].description}</p>
+                            <button onClick={handleNextHotspot} className="w-full px-4 py-2 text-sm font-semibold text-white bg-accent hover:bg-accent-dark rounded-lg transition-colors">
+                                Next
+                            </button>
+                        </div>
+                    )}
                 </div>
                 {artifacts.length > 1 && (
                     <div className="hidden md:flex justify-center gap-2 mt-4 max-w-5xl overflow-x-auto pb-2">
@@ -691,15 +763,15 @@ const CarouselLightbox = ({ artifacts, onClose, initialIndex = 0 }: { artifacts:
         </div>
     );
 };
-const ProjectShowcase = ({ title, images, onImageClick }: { title: string; images: (UIShowcaseImage[]); onImageClick: (imageName: string, index: number) => void; }) => (
+const ProjectShowcase = ({ title, images, onImageClick }: { title: string; images: (UIShowcaseImage[]); onImageClick: (artifacts: UIShowcaseImage[], index: number) => void; }) => (
     <DetailSection>
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-slate-900 dark:text-white mb-12">{title}</h2>
         <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
             {images.map((image, index) => (
                 <button 
                     key={index} 
-                    onClick={() => onImageClick(image.component, index)}
-                    className="block w-full text-left break-inside-avoid-column group"
+                    onClick={() => onImageClick(images, index)}
+                    className="block w-full text-left break-inside-avoid-column group relative z-10"
                 >
                     <div className="overflow-hidden rounded-lg shadow-lg group-hover:shadow-2xl transition-shadow duration-300">
                          <Placeholder name={image.component} />
@@ -754,11 +826,8 @@ const StandardProjectDetail = ({ project, onImageClick }: { project: StandardPro
     const [activeTabId, setActiveTabId] = useState(project.narrative[0].id);
     const activeSection = project.narrative.find(s => s.id === activeTabId) || project.narrative[0];
     
-    const handleShowcaseClick = (imageName: string, index: number) => {
-        const imageIndex = project.uiShowcase.images.findIndex(img => img.component === imageName);
-        if (imageIndex > -1) {
-            onImageClick(project.uiShowcase.images, imageIndex);
-        }
+    const handleShowcaseClick = (images: UIShowcaseImage[], index: number) => {
+        onImageClick(images, index);
     };
     
     const impactMetrics = {
@@ -787,7 +856,7 @@ const StandardProjectDetail = ({ project, onImageClick }: { project: StandardPro
     return (
       <div className="animate-fade-in">
           <main>
-              <ProjectHero hero={project.hero} onImageClick={() => onImageClick([{ component: project.hero.imageComponent, caption: project.hero.title }], 0)} />
+              <ProjectHero hero={project.hero} onImageClick={() => onImageClick([{ component: project.hero.imageComponent, caption: project.hero.title, hotspots: project.hero.hotspots }], 0)} />
               <ProjectOverview title={project.overview.title} content={project.overview.content} />
               
               <DetailSection className="!py-10 md:!py-12 bg-slate-100 dark:bg-slate-800/50">

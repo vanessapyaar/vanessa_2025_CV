@@ -347,7 +347,7 @@ const About = ({ onOpenModal }: { onOpenModal: () => void }) => (
         <div className="flex flex-col md:flex-row items-center gap-12">
             <div className="md:w-1/3 text-center">
                 <img src="https://storage.googleapis.com/portfolio-asset-vanessa/IMG_2314%202.jpg" alt="Vanessa Carvalho" className="w-48 h-48 rounded-full object-cover mx-auto mb-4 shadow-xl" />
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Vanessa Carvalho</h3>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Vanessa C.</h3>
                 <p className="text-accent dark:text-accent-light">Senior Product Designer (E-commerce, Growth & Experience)</p>
             </div>
             <div className="md:w-2/3">

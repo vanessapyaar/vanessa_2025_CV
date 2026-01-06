@@ -60,7 +60,7 @@ export interface Principle {
 export interface NarrativeSection {
     id: string;
     title: string;
-    content: (string | { type: 'quote'; text: string; author?: string } | { type: 'principle'; title: string; description: string } | { type: 'post_principles_paragraph'; text: string })[];
+    content: (string | { type: 'quote'; text: string; author?: string } | { type: 'principle'; icon?: string; title: string; description: string } | { type: 'post_principles_paragraph'; text: string })[];
     artifacts?: NarrativeArtifact[];
     metricsGrid?: OutcomeMetric[];
 }
@@ -72,7 +72,7 @@ export interface UIShowcaseImage {
 }
 
 export interface StandardProjectData {
-    id: 'boattrader-app-redesign' | 'seller-dashboard-redesign' | 'ai-workflow-templates' | 'ai-image-search';
+    id: 'boattrader-app-redesign' | 'seller-dashboard-redesign' | 'ai-workflow-templates' | 'ai-image-search' | 'first-time-user-plan-choice';
     hero: {
         title: string;
         subtitle: string;
@@ -86,6 +86,7 @@ export interface StandardProjectData {
     overview: {
         title: string;
         content: (string | { type: 'quote'; text: string; })[];
+        artifact?: NarrativeArtifact;
     };
     narrative: NarrativeSection[];
     uiShowcase: {

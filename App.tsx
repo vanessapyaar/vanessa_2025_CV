@@ -3,8 +3,8 @@ import { PROJECTS, PILLARS, VALUES, TESTIMONIALS, PROJECT_DETAILS } from './data
 import { Project, Pillar, Value, Testimonial, ProjectDetailData, NarrativeArtifact, UIShowcaseImage, NarrativeSection, StandardProjectData } from './types';
 
 
-// --- ICONS ---
-import { Search, ShieldCheck, Zap, Trophy, GitMerge, Users, Linkedin, Moon, Sun, Check, RefreshCw, Eye, Scaling, Key, Handshake, UserCheck, Book } from 'lucide-react';
+import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { Search, ShieldCheck, Zap, Trophy, GitMerge, Users, Linkedin, Moon, Sun, Check, RefreshCw, Eye, Scaling, Key, Handshake, UserCheck, Book, ChevronUp, ChevronDown } from 'lucide-react';
 
 const Icon = ({ name, ...props }: { name: string; [key: string]: any; }) => {
     const IconComponent = {
@@ -25,13 +25,53 @@ const Icon = ({ name, ...props }: { name: string; [key: string]: any; }) => {
         CollaborationIcon2: Handshake,
         UserFocusIcon: UserCheck,
         MediumIcon: Book,
+        ChevronUpIcon: ChevronUp,
+        ChevronDownIcon: ChevronDown,
     }[name];
 
     return IconComponent ? <IconComponent {...props} /> : null;
 };
 
+const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="p-2 bg-slate-900 text-white rounded-md">
+                <p className="label">{`${label} : ${payload[0].value}`}</p>
+            </div>
+        );
+    }
+
+    return null;
+};
+
+const CollapsibleSection = ({ title, children }: { title: string, children: React.ReactNode }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+        <div className="border-b border-slate-200 dark:border-slate-700 py-4">
+            <button onClick={() => setIsOpen(!isOpen)} className="w-full flex justify-between items-center text-left">
+                <h3 className="text-xl font-semibold">{title}</h3>
+                <Icon name={isOpen ? 'ChevronUpIcon' : 'ChevronDownIcon'} className="w-6 h-6" />
+            </button>
+            {isOpen && (
+                <div className="mt-4">
+                    {children}
+                </div>
+            )}
+        </div>
+    )
+};
+
 // --- PLACEHOLDERS & THUMBNAILS ---
 const Placeholders = {
+  OverviewDiagram: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Overview Diagram</div>,
+  DesignApproachA: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-square rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Card-based layouts</div>,
+  DesignApproachB: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-square rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Tiered visual hierarchy</div>,
+  DesignApproachC: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-square rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Feature table comparison</div>,
+  ExperimentationControl: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Control Version</div>,
+  ExperimentationVariantB: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Variant B</div>,
+  PricingPlanThumbnail: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Pricing Plan Thumbnail</div>,
+  PricingPlanHeroImage: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-[16/9] md:aspect-[21/9] w-full rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Pricing Plan Hero Image</div>,
+  PricingPlanSolutionScreenshot: () => <div className="bg-slate-200 dark:bg-slate-700 aspect-video rounded-lg flex items-center justify-center text-slate-500 dark:text-slate-400 p-4 text-center text-sm">Project Screenshot</div>,
   BoatTraderAppThumbnail: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/BT-App-Hero-Shot.png" alt="BoatTrader App Redesign" className="aspect-video w-full object-cover" />,
   SellerDashboardThumbnail: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/seller-dashboard.jpg" alt="Seller Dashboard Redesign" className="aspect-video w-full object-cover" />,
   DesignSystemThumbnail: () => <img src="https://storage.googleapis.com/portfolio-asset-vanessa/Design-System-Thumb.png" alt="Unified Design System" className="aspect-video w-full object-cover" />,
@@ -798,26 +838,140 @@ const ReflectionSection = ({ section }: { section: Omit<NarrativeSection, 'id' |
         </DetailSection>
     </div>
 );
-const ProjectOverview = ({ title, content }: { title: string, content: (string | {type: 'quote', text: string})[] }) => (
+const ProjectOverview = ({ title, content, artifact }: { title: string, content: (string | {type: 'quote', text: string})[], artifact?: NarrativeArtifact }) => (
     <DetailSection>
-        <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-6">{title}</h2>
-            <div className="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 space-y-4">
-                {content.map((item, i) => {
-                    if (typeof item === 'string') return <p key={i}>{item}</p>;
-                    if (item.type === 'quote') {
-                        return (
-                             <blockquote key={i} className="border-l-4 border-accent pl-4 my-6 text-slate-500 dark:text-slate-400">
-                                <p className="text-xl italic">"{item.text}"</p>
-                            </blockquote>
-                        )
-                    }
-                    return null;
-                })}
+        <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">{title}</h2>
+            <div className={`grid ${artifact ? 'md:grid-cols-2 gap-12 items-center' : ''}`}>
+                <div className="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 space-y-4">
+                    {content.map((item, i) => {
+                        if (typeof item === 'string') return <p key={i}>{item}</p>;
+                        if (item.type === 'quote') {
+                            return (
+                                 <blockquote key={i} className="border-l-4 border-accent pl-4 my-6 text-slate-500 dark:text-slate-400">
+                                    <p className="text-xl italic">"{item.text}"</p>
+                                </blockquote>
+                            )
+                        }
+                        return null;
+                    })}
+                </div>
+                {artifact && (
+                    <div className="mt-8 md:mt-0">
+                        <Placeholder name={artifact.component} />
+                        <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-2">{artifact.caption}</p>
+                    </div>
+                )}
             </div>
         </div>
     </DetailSection>
 );
+
+const PricingPlanSolution = () => {
+  const [activeTab, setActiveTab] = useState('variant-b');
+
+  const tabs = [
+    { id: 'variant-b', title: 'Variant B: Guided Choice' },
+    { id: 'control', title: 'Control: Standard Layout' },
+  ];
+
+  const tabContent = {
+    'variant-b': 'This version introduced a clear visual hierarchy, using color and a "Best Value" badge to guide users toward the recommended plan without removing choice. Tooltips provided extra clarity on key features.',
+    'control': 'The control group saw the original pricing page, which presented all options with equal weight, forcing users to compare features manually.'
+  };
+
+  return (
+    <DetailSection>
+      <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-slate-900 dark:text-white mb-12">Solution</h2>
+      <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <div className="flex flex-col space-y-2">
+            {tabs.map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`text-left p-4 rounded-lg transition-colors ${activeTab === tab.id ? 'bg-accent/10 text-accent dark:bg-accent/20' : 'hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+              >
+                <h3 className="font-bold">{tab.title}</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400">{tabContent[tab.id]}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="relative">
+          <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-4">
+            <div className="relative">
+              <Placeholder name="PricingPlanSolutionScreenshot" />
+              {activeTab === 'variant-b' && (
+                <span className="absolute top-4 right-4 bg-accent text-white text-xs font-bold px-2 py-1 rounded-full">Variant B</span>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </DetailSection>
+  );
+};
+
+const PricingPlanResults = () => {
+  const resultsData = [
+    { name: 'Control', value: 5.2, color: '#a1a1aa' },
+    { name: 'Variant B', value: 12, color: '#8b5cf6' },
+  ];
+
+  return (
+    <DetailSection>
+      <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-center text-slate-900 dark:text-white mb-12">Results</h2>
+      <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="relative">
+            <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-8 h-[300px]">
+                <h3 className="font-bold text-center mb-4">Conversion Rate by Variant</h3>
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={resultsData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                        <XAxis dataKey="name" stroke="#64748b" />
+                        <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(139, 92, 246, 0.1)'}}/>
+                        <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                            {resultsData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                        </Bar>
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+            <div className="absolute top-0 right-0 -mt-4 -mr-4 bg-white dark:bg-slate-700 p-4 rounded-full shadow-lg">
+                <p className="text-accent dark:text-accent-light font-bold text-2xl">+6.8%</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">Conversion</p>
+            </div>
+        </div>
+        <div>
+            <ul className="space-y-4">
+                <li className="flex items-start">
+                    <Icon name="CheckIcon" className="w-6 h-6 mr-3 text-blue-500 flex-shrink-0" />
+                    <div>
+                        <h4 className="font-bold">High Value Mix</h4>
+                        <p className="text-slate-600 dark:text-slate-400">Increased selection of higher-value plans.</p>
+                    </div>
+                </li>
+                <li className="flex items-start">
+                    <Icon name="CheckIcon" className="w-6 h-6 mr-3 text-blue-500 flex-shrink-0" />
+                    <div>
+                        <h4 className="font-bold">Reduced Time</h4>
+                        <p className="text-slate-600 dark:text-slate-400">Users spent less time hesitating on the pricing page.</p>
+                    </div>
+                </li>
+                <li className="flex items-start">
+                    <Icon name="CheckIcon" className="w-6 h-6 mr-3 text-blue-500 flex-shrink-0" />
+                    <div>
+                        <h4 className="font-bold">Lower Abandonment</h4>
+                        <p className="text-slate-600 dark:text-slate-400">Reduced drop-off at the plan selection step.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+      </div>
+    </DetailSection>
+  );
+};
 
 // --- Standard Reusable Project Detail Component ---
 const StandardProjectDetail = ({ project, onImageClick }: { project: StandardProjectData, onImageClick: (artifacts: (NarrativeArtifact[] | UIShowcaseImage[]), index: number) => void }) => {
@@ -827,35 +981,78 @@ const StandardProjectDetail = ({ project, onImageClick }: { project: StandardPro
     const handleShowcaseClick = (images: UIShowcaseImage[], index: number) => {
         onImageClick(images, index);
     };
-    
-    const impactMetrics = {
-        'boattrader-app-redesign': [
-            { value: '40%', label: 'Faster Discovery' },
-            { value: '+5%', label: 'Leads from Search' },
-            { value: '↑', label: 'Search Conversion' }
-        ],
-        'seller-dashboard-redesign': [
-            { value: '+42%', label: 'Return Visits' },
-            { value: '+22%', label: 'Items Saved / User' },
-            { value: '–18%', label: 'Bounce Rate' }
-        ],
-        'ai-workflow-templates': [
-            { value: '50%', label: 'Faster Delivery' },
-            { value: '+25%', label: 'A11Y Compliance' },
-            { value: '-30%', label: 'UI Bugs' }
-        ],
-        'ai-image-search': [
-            { value: '+28%', label: 'Visual Search Usage' },
-            { value: '+17%', label: 'Conversion to View' },
-            { value: '-15%', label: 'Search Abandonment' }
-        ]
-    };
 
+    if (project.id === 'first-time-user-plan-choice') {
+      return (
+        <div className="animate-fade-in">
+          <main>
+            <ProjectHero hero={project.hero} onImageClick={() => onImageClick([{ component: project.hero.imageComponent, caption: project.hero.title, hotspots: project.hero.hotspots }], 0)} />
+            <ProjectOverview title={project.overview.title} content={project.overview.content} artifact={project.overview.artifact} />
+            
+            {project.narrative.filter(sec => sec.id !== 'results').map(section => (
+                <DetailSection key={section.id}>
+                    <div className="max-w-3xl mx-auto">
+                        <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-6">{section.title}</h2>
+                        <div className="prose prose-lg dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 space-y-4">
+                            {section.content.map((item, index) => {
+                                if (typeof item === 'string') {
+                                    if (section.id === 'experimentation' || section.id === 'design') {
+                                        return <p key={index} className="flex items-start"><Icon name="CheckIcon" className="w-5 h-5 mr-3 text-accent flex-shrink-0" /><span>{item}</span></p>;
+                                    }
+                                    return <p key={index}>{item}</p>;
+                                }
+                                if (item.type === 'principle') {
+                                    return (
+                                        <div key={index} className="my-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg flex items-start">
+                                            {item.icon && <Icon name={item.icon} className="w-8 h-8 mr-4 text-accent flex-shrink-0" />}
+                                            <div>
+                                                <p className="font-bold text-slate-900 dark:text-white">{item.title}</p>
+                                                <p className="text-sm text-slate-600 dark:text-slate-400">{item.description}</p>
+                                            </div>
+                                        </div>
+                                    );
+                                }
+                                return null;
+                            })}
+                        </div>
+                        {section.id === 'design' && section.artifacts && (
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                                {section.artifacts.map((artifact, index) => (
+                                    <div key={index}>
+                                        <Placeholder name={artifact.component} />
+                                        <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-2">{artifact.caption}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                        {section.id === 'experimentation' && section.artifacts && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                                {section.artifacts.map((artifact, index) => (
+                                    <div key={index}>
+                                        <Placeholder name={artifact.component} />
+                                        <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-2">{artifact.caption}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </DetailSection>
+            ))}
+
+            <PricingPlanSolution />
+            <PricingPlanResults />
+            <ReflectionSection section={project.reflection} />
+            <ProjectFooter />
+          </main>
+        </div>
+      );
+    }
+    
     return (
       <div className="animate-fade-in">
           <main>
               <ProjectHero hero={project.hero} onImageClick={() => onImageClick([{ component: project.hero.imageComponent, caption: project.hero.title, hotspots: project.hero.hotspots }], 0)} />
-              <ProjectOverview title={project.overview.title} content={project.overview.content} />
+              <ProjectOverview title={project.overview.title} content={project.overview.content} artifact={project.overview.artifact} />
               
               <DetailSection className="!py-10 md:!py-12 bg-slate-100 dark:bg-slate-800/50">
                 <div className="lg:grid lg:grid-cols-12 lg:gap-16">
@@ -913,9 +1110,12 @@ const StandardProjectDetail = ({ project, onImageClick }: { project: StandardPro
                                 {activeSection.content.map((item, index) => {
                                     if (item.type === 'principle') {
                                         return (
-                                            <div key={index} className="my-4 p-4 bg-slate-50 dark:bg-slate-700 rounded-lg">
-                                                <p className="font-bold text-slate-900 dark:text-white">{item.title}</p>
-                                                <p className="text-sm text-slate-600 dark:text-slate-300">{item.description}</p>
+                                            <div key={index} className="my-4 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg flex items-start">
+                                                {item.icon && <Icon name={item.icon} className="w-8 h-8 mr-4 text-accent flex-shrink-0" />}
+                                                <div>
+                                                    <p className="font-bold text-slate-900 dark:text-white">{item.title}</p>
+                                                    <p className="text-sm text-slate-600 dark:text-slate-400">{item.description}</p>
+                                                </div>
                                             </div>
                                         );
                                     }
@@ -931,9 +1131,9 @@ const StandardProjectDetail = ({ project, onImageClick }: { project: StandardPro
                                 })}
                             </div>
 
-                            {activeSection.id === 'deliver' && (
+                            {activeSection.id === 'deliver' && activeSection.metricsGrid && (
                                <div className="grid sm:grid-cols-3 gap-6 my-8 text-center">
-                                    {impactMetrics[project.id].map(metric => (
+                                    {activeSection.metricsGrid.map(metric => (
                                         <div key={metric.label} className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
                                             <p className="text-3xl font-bold text-accent dark:text-accent-light mb-1">{metric.value}</p>
                                             <p className="text-sm text-slate-600 dark:text-slate-400">{metric.label}</p>

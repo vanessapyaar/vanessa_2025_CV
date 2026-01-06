@@ -2,6 +2,18 @@ import { Project, Pillar, Value, Testimonial, ProjectDetailData } from './types'
 
 export const PROJECTS: Project[] = [
   {
+    id: 'first-time-user-plan-choice',
+    tag: 'Pricing Strategy · Conversion Optimization',
+    title: 'Helping First-Time Users Choose the Right Plan',
+    summary: 'Reducing hesitation and improving conversion through pricing clarity and experimentation.',
+    impact: [
+      '+6.8% lift in overall conversion',
+      '↑ selection of higher-value plans',
+      '↓ abandonment at plan selection',
+    ],
+    thumbnailComponent: 'PricingPlanThumbnail',
+  },
+  {
     id: 'boattrader-app-redesign',
     tag: 'Marketplace UX · Product Discovery',
     title: 'From Hesitation to Action → Redesigning Search UX',
@@ -149,6 +161,126 @@ export const TESTIMONIALS: Testimonial[] = [
 ];
 
 export const PROJECT_DETAILS: { [key: string]: ProjectDetailData } = {
+  'first-time-user-plan-choice': {
+    id: 'first-time-user-plan-choice',
+    hero: {
+      title: 'Helping First-Time Users Choose the Right Plan',
+      subtitle: 'Reducing hesitation and improving conversion through pricing clarity and experimentation.',
+      category: 'Pricing Strategy · Conversion Optimization',
+      role: 'Senior Product Designer',
+      team: 'Product · Engineering · Marketing',
+      timeframe: '8 weeks',
+      impact: [
+        { value: '+6.8%', label: 'lift in overall conversion' },
+        { value: '↑', label: 'selection of higher-value plans' },
+        { value: '↓', label: 'abandonment at plan selection' },
+      ],
+      imageComponent: 'PricingPlanHeroImage',
+      hotspots: [
+        { x: 10, y: 20, title: 'Card-Based Plan Layouts', description: 'Simplified comparison and reduced cognitive load.' },
+        { x: 50, y: 50, title: 'Tiered Visual Hierarchy', description: 'Guided attention to the best-value option.' },
+        { x: 80, y: 70, title: 'Clear Value Differentiation', description: 'Made premium benefits easy to scan and understand.' }
+      ],
+    },
+    overview: {
+        title: 'Context & Problem',
+        content: [
+            'Boats Group operates a large B2C marketplace where individuals can list and sell their boats directly through a paid FSBO (For Sale By Owner) flow.',
+            'First-time sellers entering this experience arrive with high intent — they want to list their boat — but must choose a package before completing setup.',
+            'This project focused on improving plan clarity and decision confidence for first-time users encountering the FSBO pricing step for the first time.'
+        ],
+        artifact: { component: 'OverviewDiagram', caption: 'User drop-off funnel.' }
+    },
+    narrative: [
+      {
+        id: 'role',
+        title: 'My Role',
+        content: [
+            'Senior Product Designer, owning the end-to-end experience for plan selection and checkout.',
+            'I partnered closely with Product, Engineering, and Marketing to: Identify behavioral friction, Design and test improvements, and Measure impact through experimentation.'
+        ],
+        artifacts: []
+      },
+      {
+        id: 'insight',
+        title: 'Key Insight',
+        content: [
+            'Behavioral data (analytics, heatmaps, session recordings) revealed three core friction points:',
+            { type: 'principle', icon: 'DiagnosisIcon', title: 'High cognitive load', description: 'Users had to manually compare overlapping features across plans.' },
+            { type: 'principle', icon: 'Eye', title: 'No guided choice', description: 'All plans carried equal visual weight, increasing hesitation.' },
+            { type: 'principle', icon: 'Key', title: 'Weak value differentiation', description: 'Premium benefits were not immediately clear or easy to scan.' },
+            'As a result, users stalled or defaulted to the safest, lowest-commitment option.'
+        ],
+        artifacts: []
+      },
+      {
+        id: 'hypothesis',
+        title: 'Hypothesis',
+        content: [
+            'If we reduced comparison effort, clarified value differences, and guided attention during plan selection, users would commit more confidently—improving both conversion and plan quality.',
+        ],
+        artifacts: []
+      },
+      {
+        id: 'design',
+        title: 'Design Approach',
+        content: [
+            'I explored multiple approaches focused on scannability, hierarchy, and decision support:',
+            'Card-based plan layouts to reduce reading and scanning effort.',
+            'Tiered visual hierarchy to highlight the best-value option without forcing choice.',
+            'Feature table comparisons, ultimately rejected for recreating comparison fatigue.',
+            'Based on usability risk and stakeholder feedback, we moved forward with two card-based variants.',
+        ],
+        artifacts: [
+            { component: 'DesignApproachA', caption: 'Exploration A: Card-based layouts.' },
+            { component: 'DesignApproachB', caption: 'Exploration B: Tiered visual hierarchy.' },
+            { component: 'DesignApproachC', caption: 'Exploration C: Feature table comparison.' },
+        ]
+      },
+      {
+        id: 'experimentation',
+        title: 'Experimentation',
+        content: [
+            'Both variants were tested through A/B experiments at scale.',
+            'We measured: Overall funnel conversion, Plan selection distribution, and Drop-off at the pricing step.',
+            'Each experiment was tied to a clear behavioral hypothesis.',
+        ],
+        artifacts: [
+            { component: 'ExperimentationControl', caption: 'Control version of the pricing page.' },
+            { component: 'ExperimentationVariantB', caption: 'Variant B with guided choice.' },
+        ]
+      },
+      {
+        id: 'results',
+        title: 'Results',
+        content: [
+            'The experiments confirmed the hypothesis.',
+            'Beyond revenue impact, users spent less time hesitating and reached checkout more decisively.'
+        ],
+        metricsGrid: [
+            { value: '+6.8%', label: 'lift in overall conversion' },
+            { value: '↑', label: 'selection of higher-value plans' },
+            { value: '↓', label: 'abandonment at plan selection' },
+        ]
+      },
+    ],
+    uiShowcase: {
+      title: 'Solution & Results',
+      images: [
+        { component: 'PricingPlanSolutionScreenshot', caption: 'The new design guides users with a clear hierarchy and highlights the best-value plan, reducing hesitation.' },
+        { component: 'PricingPlanSolutionScreenshot', caption: 'Tooltips provide extra clarity on key features.' },
+        { component: 'PricingPlanSolutionScreenshot', caption: 'The checkout flow is now more streamlined.' },
+        { component: 'PricingPlanSolutionScreenshot', caption: 'Mobile view of the new pricing page.' },
+      ]
+    },
+    reflection: {
+        title: 'Outcome & Takeaways',
+        content: [
+          'The pricing experience shifted from a manual comparison exercise to a guided decision flow, helping first-time users understand value quickly and choose a plan with confidence rather than pressure.',
+          'This project reflects how I approach growth design problems: Start from observed user behavior, reduce friction before adding persuasion, use experimentation to validate decisions, and optimize for confidence, not just clicks.'
+        ]
+    }
+  },
   'boattrader-app-redesign': {
     id: 'boattrader-app-redesign',
     hero: {
